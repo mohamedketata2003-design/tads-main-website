@@ -212,6 +212,37 @@ document.addEventListener("DOMContentLoaded", () => {
   updateBook();
 
 });
+const fullscreenBtn = document.getElementById("bookFullscreen");
+  const bookSection = document.querySelector(".tads-book-section");
+
+  if (fullscreenBtn && bookSection) {
+    fullscreenBtn.addEventListener("click", () => {
+      if (!document.fullscreenElement) {
+        if (bookSection.requestFullscreen) {
+          bookSection.requestFullscreen();
+        } else if (bookSection.webkitRequestFullscreen) { /* Safari */
+          bookSection.webkitRequestFullscreen();
+        } else if (bookSection.msRequestFullscreen) { /* IE11 */
+          bookSection.msRequestFullscreen();
+        }
+      } else {
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        } else if (document.webkitExitFullscreen) {
+          document.webkitExitFullscreen();
+        }
+      }
+    });
+
+    // تبديل النص متاع البوطون كيف يتغير الـ Fullscreen
+    document.addEventListener("fullscreenchange", () => {
+      if (document.fullscreenElement === bookSection) {
+        fullscreenBtn.textContent = "⛶ Exit Full Screen";
+      } else {
+        fullscreenBtn.textContent = "⛶ Full Screen";
+      }
+    });
+  }
 </script>
 
 
