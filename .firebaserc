@@ -1,0 +1,8 @@
+{
+  "projects": {
+    "default": "tads-d14eb",
+    "TADS": "tads-d14eb"
+  },
+  "targets": {},
+  "etags": {}
+}

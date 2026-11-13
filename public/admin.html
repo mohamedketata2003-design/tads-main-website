@@ -1,0 +1,1413 @@
+<!DOCTYPE html>
+
+<html lang="fr">
+
+<head>
+
+  <meta charset="utf-8" />
+
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+  <title>TADS — Admin Dashboard</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+
+    :root{--navy:#17345d;--gold:#c93737;--muted:#ffffff}
+
+    body{font-family:Inter,system-ui;background:#f5f8ff;margin:0}
+
+    .sidebar{width:260px;position:fixed;left:0;top:0;bottom:0;background:var(--navy);color:#fff;padding:20px}
+
+    .sidebar h2{color:var(--gold);font-weight:700}
+
+    .main{margin-left:280px;padding:22px}
+
+    .card{background:#fff;border-radius:12px;padding:16px;margin-bottom:16px;box-shadow:0 8px 24px rgba(13,40,77,0.06)}
+
+    .btn{background:var(--navy);color:#fff;padding:8px 10px;border-radius:8px;border:0}
+
+    .danger{background:#b82b2b}
+
+    .small{font-size:13px;color:#6b7280}
+
+    img.logo{height:56px;border-radius:8px}
+
+    .row{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}
+
+    input,textarea{width:100%;padding:8px;border-radius:8px;border:1px solid #e5e7eb}
+
+    .list-item{background:#f8fafc;padding:10px;border-radius:10px;display:flex;justify-content:space-between;align-items:center}
+
+    .muted{color:#6b7280;font-size:13px}
+
+    .thumb {height:60px;border-radius:6px;object-fit:cover;margin-left:8px}
+
+  </style>
+  <link rel="icon" type="image/png" href="tads logo with background.png">
+</head>
+
+<body>
+
+  <aside class="sidebar">
+
+    <img src="TADS Logo.png" alt="TADS" class="logo" />
+
+    <h2 class="mt-3">T.A.D.S — Admin</h2>
+
+    <p class="small">Email: <span id="admin-email" class="muted"></span></p>
+
+    <nav class="mt-6">
+
+      <a href="#slider" class="block py-2">Slider</a>
+
+      <a href="#gallery" class="block py-2">Gallery</a>
+
+      <a href="#events" class="block py-2">Events</a>
+
+      <a href="#news" class="block py-2">News</a>
+
+      <a href="#sponsors" class="block py-2">Sponsors</a>
+
+      <a href="#admins" class="block py-2">Admins</a>
+
+      <a href="#" id="btnLogout" class="block py-2 text-red-300">Logout</a>
+
+    </nav>
+
+  </aside>
+
+
+
+  <main class="main">
+
+    <h1 class="text-2xl font-bold mb-4">Panneau d'administration</h1>
+
+
+
+    <!-- Slider Manager -->
+
+    <section id="slider" class="card">
+
+      <h3 class="text-lg font-semibold">1 — Slider Manager</h3>
+
+      <p class="small">Add / delete slides — upload image + title + subtitle + button URL.</p>
+
+
+
+      <div class="row mt-4">
+
+        <div>
+
+          <label>Titre</label>
+
+          <input id="slide-title" placeholder="Titre" />
+
+          <label class="mt-2">Sous-titre (subtitle)</label>
+
+          <textarea id="slide-subtitle" rows="2" placeholder="Sous-titre"></textarea>
+
+          <label class="mt-2">Image</label>
+
+          <input id="slide-file" type="file" accept="image/*" />
+
+          <label class="mt-2">Bouton URL (optionnel)</label>
+
+          <input id="slide-url" placeholder="https://..." />
+
+          <div class="mt-3">
+
+            <button id="addSlideBtn" class="btn">Ajouter la slide</button>
+
+          </div>
+
+        </div>
+
+
+
+        <div>
+
+          <h4 class="font-semibold">Slides existants</h4>
+
+          <div id="slides-list" class="mt-3 space-y-2"></div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- Gallery Manager -->
+
+    <section id="gallery" class="card">
+
+      <h3 class="text-lg font-semibold">2 — Gallery Manager</h3>
+
+      <p class="small">Upload images for gallery (optional use in news or pages).</p>
+
+      <div class="row mt-4">
+
+        <div>
+
+          <label>Image</label>
+
+          <input id="gallery-file" type="file" accept="image/*" />
+
+          <label class="mt-2">Titre (optionnel)</label>
+
+          <input id="gallery-title" />
+
+          <label class="mt-2">Description (optionnel)</label>
+
+          <textarea id="gallery-desc" rows="2"></textarea>
+
+          <div class="mt-3"><button id="uploadGalleryBtn" class="btn">Upload to Gallery</button></div>
+
+        </div>
+
+        <div>
+
+          <h4 class="font-semibold">Gallery items</h4>
+
+          <div id="gallery-list" class="mt-3 space-y-2"></div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- Events Manager -->
+
+    <section id="events" class="card">
+
+      <h3 class="text-lg font-semibold">3 — Events Manager</h3>
+
+      <p class="small">Add / edit / delete events (title, date, description, image, link).</p>
+
+      <div class="row mt-4">
+
+        <div>
+
+          <label>Title</label><input id="event-title" />
+          <label>Comité</label>
+<select id="event-committee">
+  <option value="">— Sélectionner —</option>
+  <option value="sport">sport</option>
+  <option value="loisir">loisir</option>
+  <option value="formation">formation</option>
+  <option value="humanitaire">humanitaire</option>
+  <option value="santé">santé</option>
+</select>
+
+          <label class="mt-2">Date</label><input id="event-date" type="date" />
+
+          <label class="mt-2">Location</label><input id="event-location" />
+
+          <label class="mt-2">Description</label><textarea id="event-desc" rows="3"></textarea>
+
+          <label class="mt-2">Image</label><input id="event-file" type="file" accept="image/*" />
+
+          <label class="mt-2">Link (optional)</label><input id="event-link" />
+
+          <div class="mt-3">
+
+            <button id="saveEventBtn" class="btn">Save Event</button>
+
+            <button id="clearEventBtn" class="btn" style="margin-left:8px">Clear</button>
+
+          </div>
+
+        </div>
+
+        <div>
+
+          <h4 class="font-semibold">Events list</h4>
+
+          <div id="events-list" class="mt-3 space-y-2"></div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+    <!-- News Manager -->
+
+    <section id="news" class="card">
+
+      <h3 class="text-lg font-semibold">4 — News Manager</h3>
+
+      <p class="small">Add / edit / delete news articles.</p>
+
+      <div class="row mt-4">
+
+        <div>
+
+          <label>Title</label><input id="news-title" />
+
+          <label class="mt-2">Description</label><textarea id="news-desc" rows="3"></textarea>
+
+          <label class="mt-2">Image</label><input id="news-file" type="file" accept="image/*" />
+
+          <div class="mt-3"><button id="saveNewsBtn" class="btn">Save News</button></div>
+
+        </div>
+
+        <div>
+
+          <h4 class="font-semibold">News list</h4>
+
+          <div id="news-list" class="mt-3 space-y-2"></div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- Sponsors Manager -->
+
+    <section id="sponsors" class="card">
+
+      <h3 class="text-lg font-semibold">5 — Sponsors Manager</h3>
+
+      <p class="small">Upload / remove sponsor logos.</p>
+
+      <div class="row mt-4">
+
+        <div>
+
+          <label>Logo Image</label><input id="sponsor-file" type="file" accept="image/*" />
+
+          <label class="mt-2">Sponsor name (opt)</label><input id="sponsor-name" />
+
+          <div class="mt-3"><button id="uploadSponsorBtn" class="btn">Upload Sponsor</button></div>
+
+        </div>
+
+        <div>
+
+          <h4 class="font-semibold">Sponsors list</h4>
+
+          <div id="sponsors-list" class="mt-3 space-y-2"></div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- Admins management -->
+
+    <section id="admins" class="card">
+
+      <h3 class="text-lg font-semibold">6 — Admins & Users</h3>
+
+      <p class="small">Approve new accounts by creating an entry under <code>/admins/{uid}</code>.</p>
+
+      <div class="row mt-3">
+
+        <div>
+
+          <label>User email to lookup</label><input id="user-email" placeholder="user@example.com" />
+
+          <div class="mt-2">
+
+            <button id="lookupUserBtn" class="btn">Find user (info)</button>
+
+          </div>
+
+          <div class="mt-3 muted small" id="lookup-result"></div>
+
+        </div>
+
+        <div>
+
+          <h4 class="font-semibold">Admins list</h4>
+
+          <div id="admins-list" class="mt-3 space-y-2"></div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <div class="card" style="display:none;">
+
+      <h3 class="text-lg font-semibold">Realtime Log</h3>
+
+      <pre id="debug" style="white-space:pre-wrap;max-height:180px;overflow:auto"></pre>
+
+    </div>
+
+  </main>
+
+
+
+  <!-- Firebase SDK + Cloudinary -->
+
+  <script type="module">
+
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+
+    import {
+
+      getFirestore, collection, doc, setDoc, getDoc, addDoc, updateDoc, deleteDoc,
+
+      onSnapshot, query, orderBy, getDocs, serverTimestamp
+
+    } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+
+
+
+    // ---------- CONFIG ----------
+
+    const firebaseConfig = {
+
+      apiKey: "AIzaSyCogv-v2t8OoiFKKNF30dfwMVKNJhAvjSw",
+
+      authDomain: "tads-d14eb.firebaseapp.com",
+
+      projectId: "tads-d14eb",
+
+      // fixed to the proper format (not necessary for Cloudinary but correct)
+
+      storageBucket: "tads-d14eb.appspot.com",
+
+      messagingSenderId: "396988261378",
+
+      appId: "1:396988261378:web:4f195d2821e142af24731b",
+
+      measurementId: "G-SSKPX7D6W4"
+
+    };
+
+
+
+    const app = initializeApp(firebaseConfig);
+
+    const auth = getAuth(app);
+
+    const db = getFirestore(app);
+
+
+
+    const debugEl = document.getElementById('debug');
+
+    function dbg(msg){ debugEl.textContent = new Date().toLocaleTimeString() + ' — ' + msg + '\n' + debugEl.textContent; }
+
+
+
+    // -------------------------
+
+    // Cloudinary Upload helpers
+
+    // -------------------------
+
+    async function uploadToCloudinary(file, folder = '') {
+
+      const form = new FormData();
+
+      form.append("file", file);
+
+      form.append("upload_preset", "TADS.tn");
+
+      if (folder) form.append("folder", folder);
+
+
+
+      const res = await fetch("https://api.cloudinary.com/v1_1/difk7ovvp/image/upload", {
+
+        method: "POST",
+
+        body: form
+
+      });
+
+
+
+      const data = await res.json();
+
+      if (!data.secure_url) throw new Error('Cloudinary upload failed: ' + (data.error?.message || JSON.stringify(data)));
+
+      // return url + metadata for later deletion if available
+
+      return {
+
+        url: data.secure_url,
+
+        path: data.public_id,
+
+        deleteToken: data.delete_token || null
+
+      };
+
+    }
+
+
+
+    async function deleteFromCloudinary(token) {
+
+      if (!token) return;
+
+      try {
+
+        const res = await fetch("https://api.cloudinary.com/v1_1/difk7ovvp/delete_by_token", {
+
+          method: "POST",
+
+          headers: { "Content-Type": "application/json" },
+
+          body: JSON.stringify({ token })
+
+        });
+
+        return await res.json();
+
+      } catch (err) {
+
+        console.error("Cloudinary delete error:", err);
+
+      }
+
+    }
+
+
+
+    // -------------------------
+
+    // SLIDER: upload + realtime list
+
+    // -------------------------
+
+    async function uploadSlide() {
+
+      try {
+
+        const title = document.getElementById('slide-title').value.trim();
+
+        const subtitle = document.getElementById('slide-subtitle').value.trim();
+
+        const btnUrl = document.getElementById('slide-url').value.trim();
+
+        const file = document.getElementById('slide-file').files[0];
+
+        if (!file) return alert('Choisissez une image pour la slide.');
+
+
+
+        const { url, path, deleteToken } = await uploadToCloudinary(file, 'slider');
+
+
+
+        // store fields matching index.html expectations: image, title, subtitle, button
+
+        await addDoc(collection(db, 'slider'), {
+
+          image: url,
+
+          title,
+
+          subtitle,
+
+          button: btnUrl || '',
+
+          path: path || '',
+
+          deleteToken: deleteToken || null,
+
+          createdAt: serverTimestamp()
+
+        });
+
+
+
+        // reset
+
+        document.getElementById('slide-title').value = '';
+
+        document.getElementById('slide-subtitle').value = '';
+
+        document.getElementById('slide-file').value = '';
+
+        document.getElementById('slide-url').value = '';
+
+        dbg('Slide uploaded');
+
+      } catch (e) {
+
+        console.error(e);
+
+        alert(e.message || 'Erreur upload slide');
+
+      }
+
+    }
+
+    window.uploadSlide = uploadSlide;
+
+
+
+    async function deleteSlide(id) {
+
+      if (!confirm('Supprimer la slide ?')) return;
+
+      try {
+
+        const ref = doc(db, 'slider', id);
+
+        const snap = await getDoc(ref);
+
+        if (snap.exists()) {
+
+          const data = snap.data();
+
+          if (data.deleteToken) await deleteFromCloudinary(data.deleteToken);
+
+        }
+
+        await deleteDoc(ref);
+
+        dbg('Slide supprimée: ' + id);
+
+      } catch (e) { console.error(e); alert(e.message) }
+
+    }
+
+    window.deleteSlide = deleteSlide;
+
+
+    // populate slides list (realtime)
+
+    (function listenSlides(){
+
+      const out = document.getElementById('slides-list');
+
+      const q = query(collection(db, 'slider'), orderBy('createdAt', 'desc'));
+
+      onSnapshot(q, snap => {
+
+        out.innerHTML = '';
+
+        snap.forEach(docSnap => {
+
+          const d = { id: docSnap.id, ...docSnap.data() };
+
+          const div = document.createElement('div');
+
+          div.className = 'list-item';
+
+          div.innerHTML = `
+
+            <div style="display:flex;align-items:center">
+
+              <div>
+
+                <strong>${d.title || '—'}</strong><div class="muted">${d.subtitle || ''}</div>
+
+                <div class="muted small">${d.button || ''}</div>
+
+              </div>
+
+              ${d.image ? `<img src="${d.image}" class="thumb" alt="">` : ''}
+
+            </div>
+
+            <div style="display:flex;gap:8px">
+
+              <button class="btn danger" onclick="deleteSlide('${d.id}')">Delete</button>
+
+            </div>
+
+          `;
+
+          out.appendChild(div);
+
+        });
+
+      }, err => dbg('slides snapshot error: ' + err.message));
+
+    })();
+
+
+
+    // -------------------------
+
+    // GALLERY
+
+    // -------------------------
+
+    async function uploadGallery() {
+
+      try {
+
+        const file = document.getElementById('gallery-file').files[0];
+
+        if (!file) return alert('Choisissez un fichier.');
+
+        const title = document.getElementById('gallery-title').value || '';
+
+        const desc = document.getElementById('gallery-desc').value || '';
+
+
+
+        const { url, path, deleteToken } = await uploadToCloudinary(file, 'gallery');
+
+
+
+        await addDoc(collection(db, 'gallery'), {
+
+          image: url,
+
+          title,
+
+          description: desc,
+
+          path: path || '',
+
+          deleteToken: deleteToken || null,
+
+          createdAt: serverTimestamp()
+
+        });
+
+
+
+        document.getElementById('gallery-file').value = '';
+
+        document.getElementById('gallery-title').value = '';
+
+        document.getElementById('gallery-desc').value = '';
+
+        dbg('Gallery uploaded');
+
+      } catch (e) { console.error(e); alert(e.message) }
+
+    }
+
+    window.uploadGallery = uploadGallery;
+
+
+
+    async function deleteGallery(id) {
+
+      if (!confirm('Delete gallery item?')) return;
+
+      try {
+
+        const ref = doc(db, 'gallery', id);
+
+        const snap = await getDoc(ref);
+
+        if (snap.exists() && snap.data().deleteToken) await deleteFromCloudinary(snap.data().deleteToken);
+
+        await deleteDoc(ref);
+
+        dbg('Gallery deleted ' + id);
+
+      } catch (e) { console.error(e); alert(e.message) }
+
+    }
+
+    window.deleteGallery = deleteGallery;
+
+
+
+    (function listenGallery(){
+
+      const out = document.getElementById('gallery-list');
+
+      const q = query(collection(db, 'gallery'), orderBy('createdAt', 'desc'));
+
+      onSnapshot(q, snap => {
+
+        out.innerHTML = '';
+
+        snap.forEach(s => {
+
+          const d = { id: s.id, ...s.data() };
+
+          const div = document.createElement('div');
+
+          div.className = 'list-item';
+
+          div.innerHTML = `
+
+            <div style="display:flex;align-items:center">
+
+              <div><strong>${d.title || '—'}</strong><div class="muted">${d.description || ''}</div></div>
+
+              ${d.image ? `<img src="${d.image}" class="thumb" alt="">` : ''}
+
+            </div>
+
+            <div style="display:flex;gap:8px">
+
+              <button class="btn danger" onclick="deleteGallery('${d.id}')">Delete</button>
+
+            </div>
+
+          `;
+
+          out.appendChild(div);
+
+        });
+
+      }, err => dbg('gallery snapshot error: ' + err.message));
+
+    })();
+
+
+
+    // -------------------------
+
+    // EVENTS
+// -------------------------
+
+let editingEventId = null;
+
+async function saveEvent() {
+  try {
+    const title = document.getElementById('event-title').value.trim();
+    const date = document.getElementById('event-date').value;
+    const location = document.getElementById('event-location').value.trim();
+    const desc = document.getElementById('event-desc').value.trim();
+    const link = document.getElementById('event-link').value.trim();
+    const committee = document.getElementById('event-committee').value;
+
+
+    let image = '';
+    let path = '';
+    let deleteToken = null;
+
+    const fileEl = document.getElementById('event-file');
+    if (fileEl.files && fileEl.files[0]) {
+      const res = await uploadToCloudinary(fileEl.files[0], 'events');
+      image = res.url;
+      path = res.path;
+      deleteToken = res.deleteToken;
+      fileEl.value = '';
+    }
+
+    if (editingEventId) {
+      // Update
+      const updatePayload = {
+        title,
+        date,
+        location,
+        description: desc,
+        link,
+        committee,
+        updatedAt: serverTimestamp()
+      };
+
+      if (image) {
+        updatePayload.image = image;
+        updatePayload.path = path;
+        updatePayload.deleteToken = deleteToken;
+      }
+
+      await updateDoc(doc(db, 'events', editingEventId), updatePayload);
+      editingEventId = null;
+
+    } else {
+      // Add new
+      await addDoc(collection(db, 'events'), {
+        title,
+        date,
+        location,
+        description: desc,
+        link,
+        committee,
+        image,
+        path,
+        deleteToken: deleteToken || null,
+        createdAt: serverTimestamp()   // 🔥 REQUIRED (same as NEWS)
+      });
+    }
+
+    clearEventForm();
+    dbg('Event saved');
+
+  } catch (e) {
+    console.error(e);
+    alert(e.message);
+  }
+}
+
+window.saveEvent = saveEvent;
+
+
+function clearEventForm() {
+  editingEventId = null;
+  document.getElementById('event-title').value = '';
+  document.getElementById('event-date').value = '';
+  document.getElementById('event-location').value = '';
+  document.getElementById('event-desc').value = '';
+  document.getElementById('event-file').value = '';
+  document.getElementById('event-link').value = '';
+  dbg('Event form cleared');
+}
+
+window.clearEventForm = clearEventForm;
+
+
+async function deleteEvent(id) {
+  if (!confirm('Delete event?')) return;
+  try {
+    const ref = doc(db, 'events', id);
+    const snap = await getDoc(ref);
+
+    if (snap.exists() && snap.data().deleteToken)
+      await deleteFromCloudinary(snap.data().deleteToken);
+
+    await deleteDoc(ref);
+
+    dbg('Event deleted ' + id);
+  } catch (e) {
+    console.error(e);
+    alert(e.message);
+  }
+}
+
+window.deleteEvent = deleteEvent;
+
+
+// LISTENER (now works since createdAt exists)
+(function listenEvents() {
+  const out = document.getElementById('events-list');
+  const q = query(collection(db, 'events'), orderBy('createdAt', 'desc'));
+
+  onSnapshot(q, snap => {
+    out.innerHTML = '';
+    snap.forEach(s => {
+      const d = { id: s.id, ...s.data() };
+
+      const div = document.createElement('div');
+      div.className = 'list-item';
+
+      div.innerHTML = `
+        <div style="display:flex;align-items:center">
+          <div>
+            <strong>${d.title || '—'}</strong>
+            <div class="muted">${d.date || ''} — ${d.location || ''}</div>
+            <div class="muted small">${d.link || ''}</div>
+          </div>
+          ${d.image ? `<img src="${d.image}" class="thumb" alt="">` : ''}
+        </div>
+        <div style="display:flex;gap:8px">
+          <button class="btn danger" onclick="deleteEvent('${d.id}')">Delete</button>
+        </div>
+      `;
+
+      out.appendChild(div);
+    });
+  }, err => dbg('events snapshot error: ' + err.message));
+})();
+
+
+
+
+    // -------------------------
+
+    // NEWS
+
+    // -------------------------
+
+    let editingNewsId = null;
+
+    async function saveNews() {
+
+      try {
+
+        const title = document.getElementById('news-title').value.trim();
+
+        const desc = document.getElementById('news-desc').value.trim();
+
+        const fileEl = document.getElementById('news-file');
+
+        let image = '';
+
+        let path = '';
+
+        let deleteToken = null;
+
+        if (fileEl.files && fileEl.files[0]) {
+
+          const res = await uploadToCloudinary(fileEl.files[0], 'news');
+
+          image = res.url; path = res.path; deleteToken = res.deleteToken;
+
+          fileEl.value = '';
+
+        }
+
+
+
+        if (editingNewsId) {
+
+          const updatePayload = { title, description: desc, updatedAt: serverTimestamp() };
+
+          if (image) { updatePayload.image = image; updatePayload.path = path; updatePayload.deleteToken = deleteToken; }
+
+          await updateDoc(doc(db, 'news', editingNewsId), updatePayload);
+
+          editingNewsId = null;
+
+        } else {
+
+          await addDoc(collection(db, 'news'), {
+
+            title,
+
+            description: desc,
+
+            image,
+
+            path,
+
+            deleteToken: deleteToken || null,
+
+            createdAt: serverTimestamp()
+
+          });
+
+        }
+
+
+
+        document.getElementById('news-title').value = '';
+
+        document.getElementById('news-desc').value = '';
+
+        dbg('News saved');
+
+      } catch (e) { console.error(e); alert(e.message) }
+
+    }
+
+    window.saveNews = saveNews;
+
+
+
+    async function deleteNews(id) {
+
+      if (!confirm('Delete news?')) return;
+
+      try {
+
+        const ref = doc(db, 'news', id);
+
+        const snap = await getDoc(ref);
+
+        if (snap.exists() && snap.data().deleteToken) await deleteFromCloudinary(snap.data().deleteToken);
+
+        await deleteDoc(ref);
+
+        dbg('News deleted ' + id);
+
+      } catch (e) { console.error(e); alert(e.message) }
+
+    }
+
+    window.deleteNews = deleteNews;
+
+
+
+    (function listenNews(){
+
+      const out = document.getElementById('news-list');
+
+      const q = query(collection(db, 'news'), orderBy('createdAt', 'desc'));
+
+      onSnapshot(q, snap => {
+
+        out.innerHTML = '';
+
+        snap.forEach(s => {
+
+          const d = { id: s.id, ...s.data() };
+
+          const div = document.createElement('div');
+
+          div.className = 'list-item';
+
+          div.innerHTML = `
+
+            <div style="display:flex;align-items:center">
+
+              <div><strong>${d.title || '—'}</strong><div class="muted">${d.description || ''}</div></div>
+
+              ${d.image ? `<img src="${d.image}" class="thumb" alt="">` : ''}
+
+            </div>
+
+            <div style="display:flex;gap:8px">
+
+              <button class="btn danger" onclick="deleteNews('${d.id}')">Delete</button>
+
+            </div>
+
+          `;
+
+          out.appendChild(div);
+
+        });
+
+      }, err => dbg('news snapshot error: ' + err.message));
+
+    })();
+
+
+
+    // -------------------------
+
+    // SPONSORS
+
+    // -------------------------
+
+    async function uploadSponsor() {
+
+      try {
+
+        const file = document.getElementById('sponsor-file').files[0];
+
+        if (!file) return alert('Choose file');
+
+        const name = document.getElementById('sponsor-name').value.trim() || '';
+
+
+
+        const { url, path, deleteToken } = await uploadToCloudinary(file, 'sponsors');
+
+
+
+        await addDoc(collection(db, 'sponsors'), {
+
+          name,
+
+          image: url, // index expects d.image
+
+          path,
+
+          deleteToken: deleteToken || null,
+
+          createdAt: serverTimestamp()
+
+        });
+
+
+
+        document.getElementById('sponsor-file').value = '';
+
+        document.getElementById('sponsor-name').value = '';
+
+        dbg('Sponsor uploaded');
+
+      } catch (e) { console.error(e); alert(e.message) }
+
+    }
+
+    window.uploadSponsor = uploadSponsor;
+
+
+
+    async function deleteSponsor(id) {
+
+      if (!confirm('Delete sponsor?')) return;
+
+      try {
+
+        const ref = doc(db, 'sponsors', id);
+
+        const snap = await getDoc(ref);
+
+        if (snap.exists() && snap.data().deleteToken) await deleteFromCloudinary(snap.data().deleteToken);
+
+        await deleteDoc(ref);
+
+        dbg('Sponsor deleted ' + id);
+
+      } catch (e) { console.error(e); alert(e.message) }
+
+    }
+
+    window.deleteSponsor = deleteSponsor;
+
+
+
+    (function listenSponsors(){
+
+      const out = document.getElementById('sponsors-list');
+
+      const q = query(collection(db, 'sponsors'), orderBy('createdAt', 'desc'));
+
+      onSnapshot(q, snap => {
+
+        out.innerHTML = '';
+
+        snap.forEach(s => {
+
+          const d = { id: s.id, ...s.data() };
+
+          const div = document.createElement('div');
+
+          div.className = 'list-item';
+
+          div.innerHTML = `
+
+            <div style="display:flex;align-items:center">
+
+              <div><strong>${d.name || '—'}</strong></div>
+
+              ${d.image ? `<img src="${d.image}" class="thumb" alt="">` : ''}
+
+            </div>
+
+            <div style="display:flex;gap:8px">
+
+              <button class="btn danger" onclick="deleteSponsor('${d.id}')">Delete</button>
+
+            </div>
+
+          `;
+
+          out.appendChild(div);
+
+        });
+
+      }, err => dbg('sponsors snapshot error: ' + err.message));
+
+    })();
+
+
+
+    // -------------------------
+
+    // ADMINS LIST
+
+    // -------------------------
+
+    (function listenAdmins(){
+
+      const out = document.getElementById('admins-list');
+
+      const q = query(collection(db,'admins'), orderBy('createdAt', 'desc'));
+
+      onSnapshot(q, snap => {
+
+        out.innerHTML = '';
+
+        snap.forEach(d => {
+
+          const data = d.data();
+
+          const div = document.createElement('div');
+
+          div.className = 'list-item';
+
+          div.innerHTML = `
+
+            <div>
+
+              <strong>${data.email||d.id}</strong>
+
+              <div class="muted">${data.role||''}</div>
+
+            </div>
+
+            <div style="display:flex;gap:8px">
+
+              <button class="btn danger" onclick="removeAdmin('${d.id}')">Revoke</button>
+
+            </div>
+
+          `;
+
+          out.appendChild(div);
+
+        });
+
+      }, err => dbg('admins snapshot error: ' + err.message));
+
+    })();
+
+
+
+    async function removeAdmin(id) {
+
+      if (!confirm('Revoke admin rights?')) return;
+
+      try {
+
+        await deleteDoc(doc(db,'admins',id));
+
+        dbg('Admin removed ' + id);
+
+      } catch (e) { console.error(e); alert(e.message) }
+
+    }
+
+    window.removeAdmin = removeAdmin;
+
+
+
+    // -------------------------
+
+    // AUTH CHECK
+
+    // -------------------------
+
+    onAuthStateChanged(auth, async (user) => {
+
+      if (!user) {
+
+        // redirect to admin login if you have one; otherwise you can remove this redirect
+
+        window.location.href = 'login.html';
+
+        return;
+
+      }
+
+      document.getElementById('admin-email').textContent = user.email || user.uid;
+
+      dbg('Signed in: ' + (user.email || user.uid));
+
+
+
+      // admin whitelist check
+
+      try {
+
+        const adminDoc = await getDoc(doc(db, 'admins', user.uid));
+
+        if (!adminDoc.exists()) {
+
+          alert('Compte non autorisé.');
+
+          await signOut(auth);
+
+          window.location.href = 'login.html';
+
+          return;
+
+        }
+
+      } catch (e) {
+
+        console.error('admin check error', e);
+
+        await signOut(auth);
+
+        window.location.href = 'login.html';
+
+      }
+
+    });
+
+
+
+    // -------------------------
+
+    // LOOKUP USER BY EMAIL (INFO ONLY)
+
+    // -------------------------
+
+    async function lookupUserByEmail() {
+
+      const email = document.getElementById('user-email').value.trim();
+
+      if (!email) return alert('Saisir un email.');
+
+      dbg('Lookup user: ' + email);
+
+      // NOTE: full lookup (searching Firebase Auth by email) requires Admin SDK or Cloud Function.
+
+      document.getElementById('lookup-result').textContent = `Recherche effectuée pour ${email}. Pour obtenir les détails (UID), utilisez Firebase Admin SDK / Cloud Function.`;
+
+    }
+
+    window.lookupUserByEmail = lookupUserByEmail;
+
+
+
+    // -------------------------
+
+    // Attach DOM listeners after load
+
+    // -------------------------
+
+    document.addEventListener('DOMContentLoaded', () => {
+
+      const map = [
+
+        ['addSlideBtn', uploadSlide],
+
+        ['uploadGalleryBtn', uploadGallery],
+
+        ['saveEventBtn', saveEvent],
+
+        ['clearEventBtn', clearEventForm],
+
+        ['saveNewsBtn', saveNews],
+
+        ['uploadSponsorBtn', uploadSponsor],
+
+        ['lookupUserBtn', lookupUserByEmail],
+
+        ['btnLogout', async () => { await signOut(auth); window.location.href = 'login.html'; }]
+
+      ];
+
+      let attached = 0;
+
+      map.forEach(([id, fn]) => {
+
+        const el = document.getElementById(id);
+
+        if (el) { el.addEventListener('click', fn); attached++; }
+
+        else dbg(`Button ${id} not found (maybe not in DOM)`);
+
+      });
+
+      dbg(`Attached ${attached} admin buttons`);
+
+    });
+
+  </script>
+
+
+
+</body>
+
+</html>

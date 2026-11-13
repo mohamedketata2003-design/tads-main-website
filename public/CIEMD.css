@@ -1,0 +1,1120 @@
+/* BACKGROUND IMAGE LAYER */
+.page-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  filter: blur(12px);      /* Blur control */
+  opacity: 0.28;           /* Opacity control */
+  
+  z-index: -1;             /* Behind the content BUT still visible */
+}
+
+/* Make sure header stays solid (not transparent) */
+header {
+  position: relative;
+  z-index: 10;
+  background: white;   /* or anything else */
+}
+
+/* Make main content float over background */
+main {
+  position: relative;
+  z-index: 5;
+}
+
+
+
+header.nav {
+  height: 80px; /* adjust to your real header height */
+}
+
+.hero-slider {
+  margin-top: 80px; /* same value as header height */
+}
+
+
+/* reset */
+*{box-sizing:border-box}
+html,body{
+  margin: 0;
+  font-family: Inter, system-ui, Arial, sans-serif;
+  color: #222;
+  background: transparent;
+}
+.container{max-width:var(--container);margin:0 auto;padding:0 20px}
+
+/* Floating Navbar */
+.nav-wrap {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 1100px;
+  padding: 15px 35px;
+
+  background: white;
+  border-radius: 40px;                    /* NICE rounded edges */
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  z-index: 2000;
+
+  transition: transform 0.35s ease, opacity 0.35s ease;
+}
+
+/* Hide animation (scroll down) */
+.nav-wrap.hidden {
+  transform: translate(-50%, -120px); 
+  opacity: 0;
+}
+
+/* Logo */
+.logo {
+  height: 55px;
+}
+
+
+
+
+
+.hero-slider {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 85%;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transform: scale(1.05);
+  transition: opacity 1s ease, transform 1s ease;
+}
+
+.slide.active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Arrows */
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255,255,255,.35);
+  border: none;
+  padding: 14px 18px;
+  border-radius: 50%;
+  font-size: 22px;
+  backdrop-filter: blur(8px);
+  cursor: pointer;
+  z-index: 10;
+}
+
+.arrow.left { left: 20px; }
+.arrow.right { right: 20px; }
+
+.arrow:hover {
+  background: rgba(255,255,255,.55);
+}
+
+/* Dots */
+.slider-dots {
+  position: absolute;
+  bottom: 22px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  z-index: 10;
+}
+
+.slider-dots button {
+  width: 11px;
+  height: 11px;
+  background: rgba(255,255,255,.45);
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+}
+
+.slider-dots button.active {
+  background: white;
+}
+
+
+/* Logo */
+.logo {
+  height: 55px;
+}
+
+/* Nav links */
+.nav-links {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+  background: transparent;
+}
+
+.nav-links a {
+  text-decoration: none;
+  font-weight: 500;
+  padding: 10px 20px;
+  border-radius: 20px;
+  color: #1a1a1a;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.nav-links a:hover {
+  background-color: #e8f0ff;
+  color: #0a58ca;
+}
+
+.active-link {
+  background-color: #1a73e8;
+  color: white !important;
+}
+/* Hide animation (scroll down) */
+.nav-wrap.hidden {
+  transform: translate(-50%, -120px); 
+  opacity: 0;
+}
+
+/* HERO */
+.hero{height:72vh;margin-top:64px;position:relative;overflow:hidden}
+.hero-slider {
+  width: 100%;
+  height: 72vh;       /* SAME as .hero so the container never collapses */
+  position: relative;
+  overflow: hidden;
+}
+.slide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  }
+.slide-active{opacity:1;transform:scale(1)}
+.slide-inner{color:#fff;padding:40px;background:linear-gradient(to right, rgba(0,0,0,.35), rgba(0,0,0,.05));border-radius:8px;max-width:720px}
+.slide h1{font-size:2.4rem;margin-bottom:8px}
+.slide p{opacity:.9;margin-bottom:12px}
+.btn{display:inline-block;padding:10px 16px;background:var(--gold);color:#001;border-radius:8px;text-decoration:none;font-weight:600}
+
+
+/* Floating Navbar */
+.nav-wrap {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 1100px;
+  padding: 15px 35px;
+
+  background: white;
+  border-radius: 40px;                    /* NICE rounded edges */
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  z-index: 2000;
+
+  transition: transform 0.35s ease, opacity 0.35s ease;
+}
+/* reset */
+*{box-sizing:border-box}
+html,body{
+  margin: 0;
+  font-family: Inter, system-ui, Arial, sans-serif;
+  color: #222;
+  background: transparent;
+}
+.container{max-width:var(--container);margin:0 auto;padding:0 20px}
+
+
+/* BACKGROUND IMAGE LAYER */
+.page-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  filter: blur(12px);      /* Blur control */
+  opacity: 0.28;           /* Opacity control */
+  
+  z-index: -1;             /* Behind the content BUT still visible */
+}
+
+/* Make sure header stays solid (not transparent) */
+header {
+  position: relative;
+  z-index: 10;
+  background: white;   /* or anything else */
+}
+
+/* Make main content float over background */
+main {
+  position: relative;
+  z-index: 5;
+}
+/* Container to hold everything correctly */
+body {
+  position: relative;
+  overflow-x: hidden;
+}
+
+:root{
+  --dark:#1164bd;
+  --gold:#c93737bb;
+  --muted:#ffffff;
+  --card:#25252511;
+  --container:1100px;
+}
+header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 10; /* stays above slider */
+    background: transparent;
+}
+
+
+
+/* === IMPORT FONTS === */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&display=swap');
+
+/* ==== COLORS ==== */
+:root {
+  --typography-navy: #0d1d42;
+}
+
+/* === GENERAL TEXT === */
+body {
+  font-family: "Roboto", sans-serif;
+  color: #111;
+}
+
+/* === SECTION TITLE === */
+.section-title {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--typography-navy);
+  margin-bottom: 40px;
+  letter-spacing: 0.6px;
+}
+
+/* === 2 COLUMNS LAYOUT === */
+.type-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(330px,1fr));
+  gap: 50px;
+  margin-top: 20px;
+}
+
+/* ===========================================
+   LEFT SIDE  (AMORIA / LOGO STYLE)
+================================================ */
+.type1-title {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.type1-note {
+  opacity: 0.8;
+  font-size: 14px;
+  margin-bottom: 22px;
+}
+
+/* Decorative headline "AMORIA" */
+.decor-word {
+  font-family: "Cinzel Decorative", serif;
+  font-size: 62px;
+  color: var(--typography-navy);
+  letter-spacing: 8px;
+  text-transform: uppercase;
+  margin-bottom: 22px;
+}
+
+/* Paragraph under AMORIA */
+.decor-text {
+  font-family: "Cinzel Decorative", serif;
+  font-size: 15px;
+  line-height: 1.55;
+  max-width: 430px;
+  letter-spacing: .4px;
+}
+
+/* ===========================================
+   RIGHT SIDE (ROBOTO / TEXT STYLE)
+================================================ */
+.type2-title {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.type2-note {
+  opacity: 0.8;
+  font-size: 14px;
+  margin-bottom: 22px;
+}
+
+.roboto-heading {
+  font-size: 76px;
+  font-weight: 700;
+  color: var(--typography-navy);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+
+/* Text weights */
+.sample-block { margin-bottom: 22px; }
+
+.sample-label {
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.roboto-regular { font-weight: 400; }
+.roboto-medium  { font-weight: 500; }
+.roboto-bold    { font-weight: 700; }
+
+
+/* ==== TESLA STYLE SHOWCASE BOXES ==== */
+.tesla-showcase {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));
+  gap: 24px;
+  width: 100%;
+  margin: 40px auto 60px;
+  padding: 0 20px;
+}
+
+.tesla-card {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  height: 420px;
+}
+
+.tesla-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .6s ease;
+}
+
+.tesla-card:hover .tesla-img {
+  transform: scale(1.08);
+}
+
+.tesla-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 34px;
+  background: linear-gradient(180deg, 
+        rgba(0,0,0,0.05) 0%, 
+        rgba(0,0,0,0.55) 100%);
+  color: white;
+}
+
+.tesla-type {
+  font-size: 20px;
+  opacity: .8;
+  margin-bottom: 8px;
+}
+
+.tesla-title {
+  font-size: 48px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.tesla-rate {
+  font-size: 20px;
+  margin: 12px 0 26px;
+}
+
+.tesla-btns {
+  display: flex;
+  gap: 18px;
+}
+
+.tesla-btn {
+  padding: 12px 22px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+}
+
+.tesla-btn.primary {
+  background: white;
+  color: black;
+}
+
+.tesla-btn.secondary {
+  background: rgba(255,255,255,0.3);
+  backdrop-filter: blur(6px);
+  color: white;
+}
+.event-video {
+  flex: 0 0 55%;               /* take 55% of container */
+}
+.event-video iframe,
+.event-video {
+  width: 100%;
+  max-width: 780px;      /* <-- The maximum size it will reach */
+  margin: 0 auto;        /* Center horizontally */
+  height: 350px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+}
+
+.event-video video {
+  width: 100%;           /* Fill container */
+  height: 100%;
+  object-fit: cover;
+}
+
+
+/* Base card (keep your existing styles if any) */
+.tesla-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+}
+
+/* BLUR EFFECT */
+.coming-soon {
+  filter: blur(2px);
+  pointer-events: none;
+  opacity: 0.75;
+}
+
+/* DASHED BORDER */
+.coming-soon::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 3px dashed #ffffff;
+  border-radius: 16px;
+  z-index: 2;
+}
+
+/* COMING SOON BADGE */
+.coming-soon::after {
+  position: relative;
+  opacity: 0.7;
+}
+
+.coming-soon {
+  opacity: 0.6;
+  position: relative;
+  overflow: hidden;
+}
+
+.coming-soon {
+  position: relative;
+  filter: blur(2px) grayscale(80%); /* blur + fade the card */
+  opacity: 0.6;
+  pointer-events: none; /* disable clicking */
+}
+.coming-soon::after {
+  content: "COMING SOON";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0,0,0,0.7);
+  color: white;
+  font-size: 2.3em;
+  font-weight: bold;
+  padding: 20px 20px;
+  border-radius: 10px;
+  filter: none;      /* keeps text sharp */
+  opacity: 1;        /* fully visible */
+}
+
+
+@media (max-width: 1024px) {
+
+  /* ===== GENERAL LAYOUT ===== */
+  .container {
+    padding: 0 16px;
+  }
+
+  main {
+    padding-top: 60px;
+  }
+
+  /* ===== NAVBAR ===== */
+  .nav-wrap {
+    width: 94%;
+    padding: 12px 24px;
+    top: 12px;
+  }
+
+  .logo {
+    height: 45px;
+  }
+
+  .nav-links {
+    gap: 16px;
+  }
+
+  .nav-links a {
+    padding: 8px 14px;
+    font-size: 14px;
+  }
+
+  /* ===== HERO / SLIDER ===== */
+  .hero,
+  .hero-slider {
+    height: 60vh;
+  }
+
+  .slide h1 {
+    font-size: 2rem;
+  }
+
+  .slide-inner {
+    padding: 28px;
+    max-width: 90%;
+  }
+
+  /* ===== TYPOGRAPHY ===== */
+  .section-title {
+    font-size: 26px;
+  }
+
+  .decor-word {
+    font-size: 48px;
+    letter-spacing: 6px;
+  }
+
+  .roboto-heading {
+    font-size: 56px;
+  }
+
+  /* ===== GRID LAYOUTS ===== */
+  .type-grid {
+    gap: 36px;
+  }
+
+  /* ===== VIDEO ===== */
+  .event-video iframe,
+  .event-video {
+    height: 300px;
+  }
+}
+
+
+
+
+/* =============== Container for Slider + Event =============== */
+.carousel-event-wrapper {
+    display: flex;
+    gap: 30px; /* space between slider and event */
+    align-items: stretch; /* makes both sections same height */
+    padding: 20px;
+    justify-content: center;
+    flex-wrap: wrap; /* stacks on small screens */
+}
+
+/* ================= Slider ================= */
+.banner-carousel {
+    flex: 1 1 50%;         /* slider takes 50% width by default */
+    aspect-ratio: 1 / 1;   /* perfect square */
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Existing slider styles remain */
+.carousel-item {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transition: opacity 0.8s ease-in-out;
+}
+
+.carousel-item.is-active {
+    opacity: 1;
+    z-index: 1;
+}
+.carousel-content {
+    position: absolute;
+    bottom: 25%;
+    left: 8%;
+    max-width: 90%;
+    color: white;
+    background: rgba(0, 0, 0, 0.45);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.carousel-title {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.carousel-text {
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+/* Navigation arrows */
+.carousel-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    font-size: 2rem;
+    padding: 10px 16px;
+    cursor: pointer;
+    z-index: 2;
+    border-radius: 50%;
+}
+
+.prev-btn { left: 10px; }
+.next-btn { right: 10px; }
+.carousel-nav:hover { background: rgba(0, 0, 0, 0.8); }
+
+/* Dots */
+.carousel-indicators {
+    position: absolute;
+    bottom: 15px;
+    width: 100%;
+    text-align: center;
+    z-index: 2;
+}
+
+.carousel-indicators span {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    margin: 0 6px;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.carousel-indicators span.active-dot {
+    background: white;
+}
+
+/* ================= Event Section ================= */
+.event-page {
+    flex: 1 1 40%;           /* roughly same height as slider */
+    background: #f5f5f5;
+    padding: 20px;
+    border-radius: 10px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.event-page .roboto-heading {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.event-page .roboto-bold {
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+
+@media (max-width: 992px) {
+    .carousel-event-wrapper {
+        flex-direction: column;
+        gap: 20px;
+        align-items: center;
+    }
+
+    /* Order fix */
+    .event-page {
+        order: 1;
+    }
+
+    .banner-carousel {
+        order: 2;
+        width: 100%;
+        height: 300px;        /* 👈 REQUIRED */
+        max-width: 100%;
+    }
+
+    .carousel-content {
+        max-width: 90%;
+        left: 5%;
+        bottom: 15%;
+    }
+}
+
+
+
+/* BLUR + COMING SOON IN THE CENTER */
+.tesla-card2 {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: default;
+  height: 420px;
+  min-width: 0;
+  width: 100%;
+}
+
+/* Blur the image only */
+/* Blur image only */
+.tesla-card2 .tesla-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: blur(3px) grayscale(60%) brightness(0.7);
+  transform: scale(1.03);
+}
+/* Centered COMING SOON badge */
+.tesla-card2 .coming-soon-label {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.45);
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  padding: 12px 20px;
+  border-radius: 5px;
+  white-space: nowrap;
+  z-index: 10;
+  filter: none;
+}
+
+/* Hide the title if you want only COMING SOON */
+/* Title at the bottom */
+.tesla-card2 .tesla-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+  z-index: 5;
+}
+
+.tesla-card2 .tesla-title {
+  color: white;
+  font-size: 20px;
+  position: relative;
+  z-index: 5;
+}
+
+
+
+/* CASES GRID */
+.cases {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 15px;
+  max-width: 500px;
+  margin: auto;
+  padding: 15px;
+}
+
+/* TESLA CARD */
+.tesla-card {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  height: 320px; /* was 420px */
+}
+/* CASES GRID */
+.cases {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 20px;
+  max-width: 600px;
+  margin: auto;
+  padding: 20px;
+}
+
+
+/* INDIVIDUAL CASE */
+.case {
+  background: #04011a56;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  transition: transform .3s ease, box-shadow .3s ease;
+}
+
+/* HOVER EFFECT */
+.case:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+}
+
+/* IMAGE */
+.case img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  display: block;
+}
+
+/* TITLE */
+.case h3 {
+  padding: 15px;
+  font-size: 1.1rem;
+  text-align: center;
+}
+
+
+/* MODAL BACKGROUND */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* SHOW MODAL */
+.modal.show {
+  display: flex;
+}
+
+/* CLOSE BUTTON */
+.close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  font-size: 40px;
+  color: white;
+  cursor: pointer;
+}
+
+/* SLIDER */
+.slider {
+  position: relative;
+  width: 90%;
+  max-width: 800px;
+  overflow: hidden;
+  border-radius: 16px;
+}
+.coming-soon
+/* SLIDES */
+.slides {
+  display: flex;
+  transition: transform .4s ease;
+}
+
+.slides img {
+  width: 100%;
+  flex-shrink: 0;
+  object-fit: cover;
+}
+
+/* NAV BUTTONS */
+.slider .nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255,255,255,0.3);
+  border: none;
+  font-size: 40px;
+  padding: 10px 16px;
+  cursor: pointer;
+  color: white;
+}
+
+
+.prev { left: 10px; }
+.next { right: 10px; }
+
+@media(min-width: 421px) and (max-width: 900px) {
+  .nav-links {
+    display: flex; /* Make them visible */
+    flex-wrap: wrap; /* Allow links to wrap to the next line */
+    justify-content: center; /* Center them when they wrap */
+    padding: 0 10px; /* Add some padding on the sides */
+    /* You may need to reduce font-size or padding/margin on the individual links */
+  }
+}
+@media(max-width: 420px) {
+  .nav-links {
+    display: flex;
+    flex-direction: row; /* Ensure links stay horizontal (row) */
+    flex-wrap: wrap; /* Allows links to wrap onto the second line */
+    justify-content: center; /* Centers the links on the lines */
+    margin: 5px 0;
+    padding: 0 5px; /* Add slight horizontal padding */
+    width: 100%; /* Ensure the container uses full width */
+  }
+  }
+  @media (max-width: 900px) {
+  .event-video-section {
+    flex-direction: column;
+    padding: 40px 8%;
+  }
+
+  .event-info,
+  .event-media {
+    flex: 1 1 100%;
+  }
+
+  .event-video video,
+  .event-video iframe {
+    height: 230px;
+  }
+}
+
+
+
+
+
+
+@media (max-width: 420px) {
+
+  /* CASES GRID */
+  .cases {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    max-width: 100%;
+    padding: 10px;
+    gap: 12px;
+  }
+
+  /* IMAGE */
+  .case img {
+    height: 160px;
+  }
+
+  /* TITLE */
+  .case h3 {
+    font-size: 0.95rem;
+    padding: 10px;
+  }
+
+  /* SLIDER */
+  .slider {
+    width: 95%;
+  }
+
+  .slides img {
+    height: 75vh;
+    object-fit: contain;
+  }
+
+  /* NAV BUTTONS */
+  .slider .nav {
+    font-size: 30px;
+    padding: 6px 10px;
+  }
+
+  /* CLOSE BUTTON */
+  .close {
+    font-size: 32px;
+    top: 12px;
+    right: 16px;
+  }
+}
+
+@media (min-width: 421px) and (max-width: 900px) {
+
+  /* CASES GRID */
+  .cases {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    max-width: 80%;
+    gap: 13px;
+  }
+
+  /* IMAGE */
+  .case img {
+    height: repeat(auto-fill, minmax(160px, 1fr));
+  }
+
+  /* TITLE */
+  .case h3 {
+    font-size: 1rem;
+    padding: 12px;
+  }
+
+  /* SLIDER */
+  .slider {
+    max-width: 90%;
+  }
+
+  .slides img {
+    height: 65vh;
+    object-fit: contain;
+  }
+}
+@media (max-width: 900px) {
+
+  /* MODAL CENTERING */
+  .modal {
+    padding: 20px;
+  }
+
+  /* SLIDER ROUNDING */
+  .slider {
+    border-radius: 14px;
+  }
+}
+
+.playfair-heading {
+    font-family: 'Playfair Display SC', serif;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Tex+Gyre+Termes&display=swap');
+
+.playfair-bold {
+    font-family: 'TeX Gyre Termes', serif;
+}
+

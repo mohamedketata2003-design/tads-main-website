@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>National Dental Congress – TADS</title>
+
+<link rel="stylesheet" href="CIEMD.css?v=6" />
+<link rel="icon" type="image/png" href="tads logo with background.png">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+</head>
+<body>
+    <div class="page-bg" style="background-image: url('charte congres.png');"></div>
+            <header class="container nav">
+      <nav class="nav-links" id="navLinks">
+        <img src="TADS Logo.png" alt="TADS logo" class="logo" />
+        <a href="index.html#hero">Accueil</a>
+        <a href="index.html#about">Présentation</a>
+        <a href="index.html#events">Événements</a>
+        <a href="index.html#comities">Comités</a>
+        <a href="index.html#news">Actualités</a>
+        <a href="index.html#sponsors">Sponsors</a>
+        <a href="index.html#contact">Contact</a>
+      </nav>
+      <button class="hamburger" id="hamburger" aria-label="menu">
+        <span></span><span></span><span></span>
+      </button>
+        </header>
+
+ 
+<div class="hero-slider" id="teslaSlider">
+
+    <div class="slide active" style="background-image:url('congre.png')">
+        <div class="slide-overlay-content">
+           <h1 class="slide-title">.</h1>
+        <p class="slide-subtitle">.</p>
+    </div>
+    </div>
+    <div class="slide" style="background-image:url('ciemd/core monastir.jpg')"></div>
+    <div class="slide" style="background-image:url('ciemd/core hotel.jpg')"></div>
+
+        <button class="arrow left" id="prevSlide">&#10094;</button>
+    <button class="arrow right" id="nextSlide">&#10095;</button>
+
+        <div class="slider-dots" id="sliderDots"></div>
+</div>
+<section class="tesla-showcase">
+<a href="https://docs.google.com/forms/d/e/1FAIpQLSfDHG3rG1ui3atDSCMuiRWa6C9arQn46gYijLs2acxXurIhmw/viewform?usp=publish-editor">  
+  <div class="tesla-card">
+    <img src="ciemd\Copy of formulaire ciemd.jpg" class="tesla-img">
+    <div class="tesla-overlay">
+      <h2 class="tesla-title">Formulmaire De Préinscription</h2>
+    </div>
+  </div>
+  </a>  
+  </div>
+
+</section>
+
+<div class="carousel-event-wrapper">
+    <div class="banner-carousel" id="dentalCarousel">
+        <!-- slides here -->
+    
+    <div class="carousel-item is-active" style="background-image:url('ciemd/djo.png')">
+        <div class="carousel-content">
+            <h1 class="carousel-title">
+                Meet the Team
+            
+        </div>
+    </div>
+
+    <div class="carousel-item" style="background-image:url('ciemd/7.png')"></div>
+    <div class="carousel-item" style="background-image:url('ciemd/2.png')"></div>
+    <div class="carousel-item" style="background-image:url('ciemd/11.png')"></div>
+    <div class="carousel-item" style="background-image:url('ciemd/4.png')"></div>
+    <div class="carousel-item" style="background-image:url('ciemd/9.png')"></div>
+    <div class="carousel-item" style="background-image:url('ciemd/10.png')"></div>
+    <div class="carousel-item" style="background-image:url('ciemd/5.png')"></div>
+    <div class="carousel-item" style="background-image:url('ciemd/6.png')"></div>
+    <button class="carousel-nav prev-btn" id="carouselPrev">&#10094;</button>
+    <button class="carousel-nav next-btn" id="carouselNext">&#10095;</button>
+
+    <div class="carousel-indicators" id="carouselIndicators"></div>
+    </div>
+    <div class="event-page">
+    <p class="roboto-heading">InterNational Dental Congress</p>
+    <p class="roboto-bold">organisé depuis 13 ans,le congrès international des etudiants en médecine dentaire , est un Événement extraordinaire qui rassemble des étudiants et des dentistes Tunisiens et internationaux, offrant aisni à nos partenaires une occasion unique d'atteindre un public de grande valeur.
+        LE CIEMD prend de plus d'ampleur tant qu niveau scientifique que social et comporte en ces jours plusieurs conférenciers inter-nationaux ,différents ateliers diversifiés et plus de 500 participants de tout àge allant d'étudiants en 1ère année jusqu'aux internes ,résidents,omnipraticiens et des proffesseurs en médecine dentaire.
+        Cet élement fournit une plateforme priviligée pour favoriser les connexions,l'échange de connaissances et le développement des compétences dans le domaine de la dentisterie
+    </p>
+</div>
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const carousel = document.getElementById("dentalCarousel");
+    const items = carousel.querySelectorAll(".carousel-item");
+    const prevBtn = document.getElementById("carouselPrev");
+    const nextBtn = document.getElementById("carouselNext");
+    const indicators = document.getElementById("carouselIndicators");
+
+    let currentIndex = 0;
+
+    // Create dots
+    items.forEach((_, index) => {
+        const dot = document.createElement("span");
+        dot.classList.add("indicator");
+        if (index === 0) dot.classList.add("active");
+
+        dot.addEventListener("click", () => {
+            goToSlide(index);
+        });
+
+        indicators.appendChild(dot);
+    });
+
+    const dots = indicators.querySelectorAll(".indicator");
+
+    function goToSlide(index) {
+        items[currentIndex].classList.remove("is-active");
+        dots[currentIndex].classList.remove("active");
+
+        currentIndex = index;
+
+        items[currentIndex].classList.add("is-active");
+        dots[currentIndex].classList.add("active");
+    }
+
+    function nextSlide() {
+        const nextIndex = (currentIndex + 1) % items.length;
+        goToSlide(nextIndex);
+    }
+
+    function prevSlide() {
+        const prevIndex = (currentIndex - 1 + items.length) % items.length;
+        goToSlide(prevIndex);
+    }
+
+    nextBtn.addEventListener("click", nextSlide);
+    prevBtn.addEventListener("click", prevSlide);
+});
+
+</script>
+
+</div>
+<script>
+/* ELEMENTS */
+const slides = document.querySelectorAll(".slide");
+const dotsContainer = document.getElementById("sliderDots");
+const prevBtn = document.getElementById("prevSlide");
+const nextBtn = document.getElementById("nextSlide");
+
+let current = 0;
+
+/* CREATE DOTS dynamically */
+slides.forEach((_, i) => {
+    const dot = document.createElement("button");
+    if (i === 0) dot.classList.add("active");
+    dot.addEventListener("click", () => goToSlide(i));
+    dotsContainer.appendChild(dot);
+});
+
+/* Now select dots after creation */
+let dots = dotsContainer.querySelectorAll("button");
+
+/* SLIDE FUNCTION */
+function goToSlide(i) {
+    slides[current].classList.remove("active");
+    dots[current].classList.remove("active");
+
+    current = (i + slides.length) % slides.length;
+
+    slides[current].classList.add("active");
+    dots[current].classList.add("active");
+}
+
+/* ARROW BUTTONS */
+nextBtn.addEventListener("click", () => goToSlide(current + 1));
+prevBtn.addEventListener("click", () => goToSlide(current - 1));
+
+/* AUTOPLAY */
+setInterval(() => goToSlide(current + 1), 5000);
+</script>
+
+
+
+<div class="event-video">
+    <iframe 
+        src="snapsave-app_1032455815577836_hd.mp4"
+        frameborder="0"
+        allow="autoplay; encrypted-media"
+        allowfullscreen>
+    </iframe>
+</div>
+
+<section class="tesla-showcase">
+<a href="program scientific.html">  
+  <div class="tesla-card">
+    <img src="prog sc.png" class="tesla-img">
+    <div class="tesla-overlay">
+      <h2 class="tesla-title">programme scientifique</h2>
+    </div>
+  </div>
+  </a>  
+
+  <div class="coming-soon">
+    <img src="prog social.png" class="tesla-img">
+    <div class="tesla-overlay">
+      <h2 class="tesla-title">programme social</h2>
+    </div>
+  </div>
+
+</section>
+
+
+ <section id="news" class="section container fade">
+    <h2>Actualités récentes</h2>
+    <div class="news-list"></div>
+  </section>
+</body>
+</html>

@@ -1,0 +1,804 @@
+:root{
+  --dark:#1164bd;
+  --gold:#c93737bb;
+  --muted:#ffffff;
+  --card:#25252511;
+  --container:1100px;
+}
+
+
+
+/* Container to hold everything correctly */
+body {
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* BACKGROUND IMAGE LAYER */
+.page-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  filter: blur(12px);      /* Blur control */
+  opacity: 0.28;           /* Opacity control */
+  
+  z-index: -1;             /* Behind the content BUT still visible */
+}
+
+/* Make sure header stays solid (not transparent) */
+header {
+  position: relative;
+  z-index: 10;
+  background: white;   /* or anything else */
+}
+
+/* Make main content float over background */
+main {
+  position: relative;
+  z-index: 5;
+}
+
+
+/* reset */
+*{box-sizing:border-box}
+html,body{
+  margin: 0;
+  font-family: Inter, system-ui, Arial, sans-serif;
+  color: #222;
+  background: transparent;
+}
+.container{max-width:var(--container);margin:0 auto;padding:0 20px}
+
+/* Floating Navbar */
+.nav-wrap {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 1100px;
+  padding: 15px 35px;
+
+  background: white;
+  border-radius: 40px;                    /* NICE rounded edges */
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  z-index: 2000;
+
+  transition: transform 0.35s ease, opacity 0.35s ease;
+}
+
+/* Hide animation (scroll down) */
+.nav-wrap.hidden {
+  transform: translate(-50%, -120px); 
+  opacity: 0;
+}
+
+/* Logo */
+.logo {
+  height: 55px;
+}
+
+/* Nav links */
+.nav-links {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+}
+
+.nav-links a {
+  text-decoration: none;
+  font-weight: 500;
+  padding: 10px 20px;
+  border-radius: 20px;
+  color: #1a1a1a;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.nav-links a:hover {
+  background-color: #e8f0ff;
+  color: #0a58ca;
+}
+
+.active-link {
+  background-color: #1a73e8;
+  color: white !important;
+}
+
+/* Contact button */
+.contact-button {
+  background-color: #1a73e8;
+  color: white;
+  padding: 10px 18px;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background-color 0.3s;
+}
+
+.contact-button:hover {
+  background-color: #0f5ec7;
+}
+
+
+/* HERO */
+.hero,
+.hero-slider {
+  z-index: 1;
+  position: relative;
+}
+.hero{height:72vh;margin-top:64px;position:relative;overflow:hidden}
+.hero-slider {
+  height: 72vh;       /* SAME as .hero so the container never collapses */
+  position: relative;
+}
+.slide{position:absolute;inset:0; z-index: 1;background-size:cover;background-position:center;opacity:0;transform:scale(1.02);transition:opacity .8s,transform .8s;display:flex;align-items:center}
+.slide.active{opacity:1;transform:scale(1)}
+.slide-inner{color:#fff;padding:40px;background:linear-gradient(to right, rgba(0,0,0,.35), rgba(0,0,0,.05));border-radius:8px;max-width:720px}
+.slide h1{font-size:2.4rem;margin-bottom:8px}
+.slide p{opacity:.9;margin-bottom:12px}
+.btn{display:inline-block;padding:10px 16px;background:var(--gold);color:#001;border-radius:8px;text-decoration:none;font-weight:600}
+
+/* controls */
+.slider-controls{position:absolute;right:18px;bottom:18px;display:flex;gap:8px}
+.slider-controls button{background:rgba(0,0,0,.45);color:white;border:0;padding:8px 10px;border-radius:6px;cursor:pointer}
+
+/* DOTS */
+.slider-dots{position:absolute;left:50%;transform:translateX(-50%);bottom:16px;display:flex;gap:8px}
+.slider-dots button{width:10px;height:10px;border-radius:50%;border:0;background:rgba(255,255,255,.35);cursor:pointer}
+.slider-dots button.active{background:var(--gold)}
+
+/* sections */
+.section{padding:56px 0}
+.section h2{color:var(--dark);margin-bottom:14px}
+
+/* events */
+.events-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.event-card{background:var(--card);border-radius:12px;padding:18px;box-shadow:0 10px 30px rgba(0,0,0,.07);transition:transform .2s}
+.event-card:hover{transform:translateY(-6px)}
+.event-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 12px 12px 0 0;
+}
+.small-btn{display:inline-block;margin-top:12px;padding:8px 10px;border-radius:8px;background:var(--dark);color:#fff;text-decoration:none}
+
+/* news */
+.news-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.news-item{display:flex;gap:12px;background:#fff;padding:12px;border-radius:10px;align-items:center;box-shadow:0 10px 28px rgba(0,0,0,.06)}
+.news-item img{width:110px;height:70px;object-fit:cover;border-radius:8px}
+
+/* sponsors carousel */
+#sponsors {
+  display: flex !important;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: 18px;
+  justify-content: center;
+  align-items: center;
+  overflow-x: auto;
+  padding: 8px 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.sponsor {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 8px 20px rgba(0,0,0,.06);
+}
+
+.sponsor img {
+  max-width: 100%;
+  height: 56px;
+  object-fit: contain;
+  display: block;
+}
+
+
+/* contact grid */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start}
+.contact-form input,.contact-form textarea{width:100%;padding:10px;border-radius:8px;border:1px solid #ddd;margin-bottom:10px}
+.contact-form button{background:var(--dark);color:#fff;border:0;padding:10px 14px;border-radius:8px}
+
+/* footer */
+.footer{background:var(--dark);color:#fff;padding:18px 0;text-align:center;margin-top:28px}
+
+
+
+/* responsiveness */
+/* --- Medium Screens (e.g., Tablet Landscape to Desktop) --- */
+@media(min-width: 421px) and (max-width: 900px) {
+  .nav-links {
+    display: flex; /* Make them visible */
+    flex-wrap: wrap; /* Allow links to wrap to the next line */
+    justify-content: center; /* Center them when they wrap */
+    padding: 0 10px; /* Add some padding on the sides */
+    /* You may need to reduce font-size or padding/margin on the individual links */
+  }
+}
+@media(max-width: 420px) {
+  .nav-links {
+    display: flex;
+    flex-direction: row; /* Ensure links stay horizontal (row) */
+    flex-wrap: wrap; /* Allows links to wrap onto the second line */
+    justify-content: center; /* Centers the links on the lines */
+    margin: 5px 0;
+    padding: 0 5px; /* Add slight horizontal padding */
+    width: 100%; /* Ensure the container uses full width */
+  }
+
+  /* Style for individual links */
+  .nav-links a {
+    /* Important: Use small flex-basis/width, or just let content dictate width */
+    flex: 0 1 auto; /* Allow the link width to shrink/grow slightly based on content */
+    
+    /* Space Reduction: Minimize padding and margin */
+    padding: 4px 6px; /* Reduced vertical and horizontal padding */
+    margin: 2px; /* Small margin around each link */
+    
+    /* Optional: Smallest feasible font size */
+    font-size: 0.85em; 
+    
+    /* Remove the bottom border since they are horizontal */
+    border-bottom: none; 
+  }
+ .nav-wrap {
+  /* Use fixed position so it stays relative to the viewport */
+  position: fixed; 
+  top: 0; /* Starting position: fully visible at the top */
+  width: 100%;
+  z-index: 1000; /* Ensure it stays above all content */
+  background-color: white; /* Important: Prevents content from showing through */
+  
+  /* Add a smooth transition for the movement */
+  transition: top 0.3s ease-in-out; 
+  
+}
+
+/* --- The Class Toggled by JavaScript to Hide the Header --- */
+.nav-wrap.hidden {
+  transform: translate(-50%, -120%);
+  opacity: 0;
+}
+}
+
+
+.slide {
+  width: 100%;
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 1;
+}
+
+.fade {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all .6s ease-out;
+}
+
+.fade.show {
+  opacity: 1;
+  transform: none;
+}
+
+
+
+.values {
+  text-align: center;
+  padding: 60px 20px;
+  background: #f9fbfd;
+}
+
+.values-title {
+  font-size: 28px;
+  margin-bottom: 40px;
+  color: #0a2540;
+}
+
+.values-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.value-card {
+  background: #fff;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  text-align: center;
+}
+
+.value-card h3 {
+  font-size: 18px;
+  margin: 15px 0;
+  color: #003366;
+}
+
+.value-card p {
+  font-size: 14px;
+  color: #555;
+}
+
+.value-card .icon {
+  font-size: 30px;
+  color: #007bff;
+}
+
+/* Footer */
+.footer {
+  background: #f9fbfd;
+  padding: 40px 20px;
+  margin-top: 50px;
+  color: #333;
+  font-size: 14px;
+}
+
+.footer-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 30px;
+  max-width: 1100px;
+  margin: auto;
+}
+
+.footer h4 {
+  margin-bottom: 15px;
+  font-size: 16px;
+  color: #003366;
+}
+
+.footer a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+.socials img {
+  width: 24px;
+  margin-right: 10px;
+}
+
+.contact-btn {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.contact-btn:hover {
+  background: #0056b3;
+}
+
+.footer-bottom {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 13px;
+  color: #666;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+#admin-content {
+    display: none;
+}
+
+
+
+.event-video-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  gap: 40px;
+  padding: 80px 8%;
+}
+
+/* Left */
+.event-info {
+  
+  flex: 0 0 45%;
+ display: flex;          /* ✅ */
+}
+
+.event-card {
+  height: 100%;
+  justify-content: center;           /* ✅ */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* optional but nice */
+}
+.event-card .event-img {
+  height: 370px;   /* or 40vh */
+  object-fit: cover;
+}
+
+/* Right container */
+.event-media {
+  flex: 0 0 55%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Video */
+.event-video {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    margin: 20px auto 30px;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #000;
+}
+
+.event-video video {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+    background: #000;
+}
+
+@media (max-width: 768px) {
+    .event-video {
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        margin: 20px auto 30px;
+    }
+}
+/* Second image */
+.event-side-img {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  object-fit: cover;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+}
+
+/* Mobile responsive */
+@media (max-width: 900px) {
+  .event-video-section {
+    flex-direction: column;
+    padding: 40px 8%;
+  }
+
+  .event-info,
+  .event-media {
+    flex: 1 1 100%;
+  }
+
+  .event-video video,
+  .event-video iframe {
+    height: 230px;
+  }
+}
+
+  /* --- 1. Style the main container (section.clubs) --- */
+.clubs.container {
+    /* Enable Flexbox for horizontal alignment */
+    display: flex;
+    
+    /* Allow cards to wrap to the next row on smaller screens */
+    flex-wrap: wrap; 
+    
+    /* Center the cards block horizontally within the section */
+    justify-content: center;
+    
+    /* Add vertical padding for space above/below the section */
+    padding: 30px 0;
+    
+    /* Set a consistent gap between the cards */
+    gap: 25px; 
+}
+
+/* --- 2. Style the individual club item wrapper (club-info) --- */
+/* This ensures each card is treated as a flexible item */
+.club-info {
+    /* Set a flexible size for the item */
+    /* width: 100% ensures responsiveness */
+    /* max-width: 300px prevents them from being too large */
+    flex-basis: 300px; /* Suggests an initial size */
+    flex-grow: 1; /* Allows the card to grow to fill space if needed, up to the max-width */
+    max-width: 300px; 
+}
+
+/* --- 3. Style the card itself (club-card) --- */
+.club-card {
+    /* Aesthetic styling */
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px; 
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1); /* Slightly stronger shadow */
+    overflow: hidden; 
+    text-align: center;
+    
+    /* Smooth transition for hover effects */
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+/* --- Optional: Hover effect for interactivity --- */
+.club-card:hover {
+    transform: translateY(-5px); /* Lift the card slightly */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15); /* Enhance shadow */
+}
+
+/* --- 4. Style the image (event-img) --- */
+.club-card .event-img {
+    width: 100%; 
+    height: 200px; /* Set a consistent height for all images */
+    object-fit: cover; /* Ensures images fill the space without stretching */
+}
+
+/* --- 5. Style the club title (h3) --- */
+.club-card h3 {
+    font-size: 1.3em;
+    color: #007bff; /* Use a prominent color */
+    padding: 15px 10px;
+    margin: 0; /* Remove default margin for cleaner look */
+}
+.nav-wrap {
+  position: fixed;
+  z-index: 99999;
+  isolation: isolate; /* 🔑 breaks stacking context issues */
+}
+
+
+
+.event-card h3 {
+  color: #0a58ca;   /* title color */
+}
+
+.event-card p {
+  color: #110000;      /* paragraph color */
+}
+
+.event-card a {
+  color: rgb(21, 1, 1);     /* link text */
+}
+
+.event-btn {
+  text-decoration: none;   /* removes the underline */
+  color: inherit;          /* keeps same text color as parent */
+}
+
+
+
+.loading { color: #888; font-style: italic; text-align: center; padding: 20px; }
+
+
+.login-container {
+  max-width: 360px;
+  margin: 100px auto;
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.login-container input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 12px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+}
+
+.login-container button {
+  width: 100%;
+  padding: 10px;
+  background: #1164bd;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.error-msg {
+  color: red;
+  font-size: 13px;
+  margin-top: 10px;
+}
+
+.comities-grid img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  display: inline-block;
+} 
+
+
+/* =====================================
+   TADS 3D FLIPBOOK
+===================================== */
+/* =====================================
+   TADS 3D FLIPBOOK
+===================================== */
+
+.tads-book-section {
+  margin: 45px auto 65px;
+  padding: 35px 20px;
+  background: rgba(255,255,255,0.75);
+  border-radius: 22px;
+  box-shadow: 0 12px 35px rgba(0,0,0,0.10);
+  text-align: center;
+  overflow: hidden;
+}
+
+.tads-book-heading span {
+  color: #c93737;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 4px;
+}
+
+.tads-book-heading h3 {
+  color: #1164bd;
+  font-size: 30px;
+  margin: 10px 0;
+}
+
+.tads-book-heading p {
+  color: #666;
+  margin-bottom: 35px;
+}
+
+/* BOOK STAGE */
+
+.tads-book-stage {
+  perspective: 2000px;
+  display: flex;
+  justify-content: center;
+  padding: 15px;
+}
+
+.tads-book {
+  position: relative;
+  width: min(100%, 780px);
+  height: clamp(280px, 52vw, 490px);
+  transform-style: preserve-3d;
+}
+
+/* INDIVIDUAL SHEETS */
+
+.tads-book-sheet {
+  position: absolute;
+  inset: 0;
+  transform-origin: left center;
+  transform-style: preserve-3d;
+  transition: transform 0.85s cubic-bezier(.2,.7,.2,1);
+  border-radius: 5px 14px 14px 5px;
+}
+
+.tads-book-sheet.turned {
+  transform: rotateY(-180deg);
+}
+
+/* FRONT AND BACK */
+
+.tads-book-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  overflow: hidden;
+  background: white;
+  border-radius: 5px 14px 14px 5px;
+  box-shadow: 0 5px 20px rgba(0,0,0,.18);
+}
+
+.tads-book-face.back {
+  transform: rotateY(180deg);
+}
+
+.tads-book-face img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  background: #fff;
+}
+
+/* CONTROLS */
+
+.tads-book-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 25px;
+  margin-top: 30px;
+}
+
+.tads-book-controls button {
+  background: #1164bd;
+  color: white;
+  border: none;
+  padding: 12px 22px;
+  border-radius: 25px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: .3s;
+}
+
+.tads-book-controls button:hover:not(:disabled) {
+  background: #c93737;
+  transform: translateY(-2px);
+}
+
+.tads-book-controls button:disabled {
+  opacity: .35;
+  cursor: not-allowed;
+}
+
+#bookCounter {
+  color: #1164bd;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+/* MOBILE */
+
+@media(max-width:600px) {
+
+  .tads-book-section {
+    padding: 25px 8px;
+  }
+
+  .tads-book {
+    height: 260px;
+  }
+
+  .tads-book-heading h3 {
+    font-size: 24px;
+  }
+
+  .tads-book-controls {
+    gap: 10px;
+  }
+
+  .tads-book-controls button {
+    padding: 10px 13px;
+    font-size: 12px;
+  }
+
+  #bookCounter {
+    font-size: 11px;
+  }
+}
+.tads-book {
+  position: relative;
+  width: min(100%, 390px);
+  height: clamp(280px, 52vw, 490px);
+  transform-style: preserve-3d;
+  margin: auto;
+}

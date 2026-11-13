@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>National Dental Congress – TADS</title>
+
+<link rel="stylesheet" href="CIEMD.css?v=4" />
+<link rel="icon" type="image/png" href="tads logo with background.png">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+</head>
+<body>
+    <div class="page-bg" style="background-image: url('charte congres.png');"></div>
+            <header class="container nav">
+      <nav class="nav-links" id="navLinks">
+        <img src="TADS Logo.png" alt="TADS logo" class="logo" />
+        <a href="index.html#hero">Accueil</a>
+        <a href="index.html#about">Présentation</a>
+        <a href="index.html#events">Événements</a>
+        <a href="index.html#comities">Comités</a>
+        <a href="index.html#news">Actualités</a>
+        <a href="index.html#sponsors">Sponsors</a>
+        <a href="index.html#contact">Contact</a>
+      </nav>
+      <button class="hamburger" id="hamburger" aria-label="menu">
+        <span></span><span></span><span></span>
+      </button>
+        </header>
+ 
+<div class="hero-slider" id="teslaSlider">
+
+    <div class="slide active" style="background-image:url('congre.png')">
+        <div class="slide-overlay-content">
+           <h1 class="slide-title">.</h1>
+        <p class="slide-subtitle">.</p>
+    </div>
+    </div>
+    <div class="slide" style="background-image:url('ciemd/core monastir.jpg')"></div>
+    <div class="slide" style="background-image:url('ciemd/core hotel.jpg')"></div>
+
+        <button class="arrow left" id="prevSlide">&#10094;</button>
+    <button class="arrow right" id="nextSlide">&#10095;</button>
+
+        <div class="slider-dots" id="sliderDots"></div>
+</div>
+
+    <div class="carousel-indicators" id="carouselIndicators"></div>
+    </div>
+    <div class="event-page">
+    <p class="roboto-heading">InterNational Dental Congress</p>
+    <p class="roboto-bold">organisé depuis 13 ans,le congrès international des etudiants en médecine dentaire , est un Événement extraordinaire qui rassemble des étudiants et des dentistes Tunisiens et internationaux, offrant aisni à nos partenaires une occasion unique d'atteindre un public de grande valeur.
+        LE CIEMD prend de plus d'ampleur tant qu niveau scientifique que social et comporte en ces jours plusieurs conférenciers inter-nationaux ,différents ateliers diversifiés et plus de 500 participants de tout àge allant d'étudiants en 1ère année jusqu'aux internes ,résidents,omnipraticiens et des proffesseurs en médecine dentaire.
+        Cet élement fournit une plateforme priviligée pour favoriser les connexions,l'échange de connaissances et le développement des compétences dans le domaine de la dentisterie
+    </p>
+</div>
+</div>
+<section>
+  <h2 class="decor-word">LES ATELIERS</h2>
+</section>
+
+<!-- CASE GRID (same as before) -->
+<section class="cases">
+    
+  <div class="case" onclick="openGallery(0)">
+    <img src="atelier\Atelier Aladin\1.jpg" alt="">
+    <h3>Les Bijoux dentaires: principes,indications et protocole clinique</h3>
+  </div>
+
+
+<!-- MODAL -->
+<div class="modal" id="galleryModal">
+  <span class="close" onclick="closeGallery()">×</span>
+
+  <div class="slider">
+    <button class="nav prev" onclick="moveSlide(-1)">‹</button>
+    <div class="slides">
+      <img src="atelier\Atelier Aladin\2.jpg">
+      <img src="atelier\Atelier Aladin\1.jpg">
+    </div>
+    <button class="nav next" onclick="moveSlide(1)">›</button>
+  </div>
+</div>
+
+
+
+  <div class="case" onclick="openGallery(1)">
+    <img src="atelier\atelier dr kawthar finale\1.jpg" alt="Case 2">
+    <h3>Gestion pratique des perforations du plancher pulpaire</h3>
+  </div>
+  
+
+  <div class="case" onclick="openGallery(2)">
+    <img src="atelier\atelier marwa garma\1.jpg" alt="Case 3">
+    <h3>Maitriser la biopsie de la cavité buccale: indications,pièges et techniques</h3>
+  </div>
+
+ <div class="case" onclick="openGallery(3)">
+    <img src="atelier/atelier shining/1.jpg" alt="Case 3">
+    <h3>Scan facial:visage révèlé,sourire sculpté</h3>
+  </div>
+  <div class="case" onclick="openGallery(4)">
+    <img src="atelier/atelier Zoheir/1.jpg" alt="Case 3">
+    <h3>Extractions chirurgicales de la dent de sagesse:comprendre,oser,réussir</h3>
+  </div>
+  <div class="case" onclick="openGallery(5)">
+    <img src="atelier\kawther deuxieme atelier\1.jpg" alt="Case 3">
+    <h3>Bypass des instruments fracturés:sécuriser le geste</h3>
+  </div>
+  <div class="case" onclick="openGallery(6)">
+    <img src="atelier\atelier tayssir.jpg" alt="Case 3">
+    <h3>Correction du sourire gingivale: quand et comment réaliser un repositionnement de la lèvre supérieure</h3>
+  </div>
+   <div class="case" onclick="openGallery(8)">
+    <img src="atelier\atelier mme dhekra\1.jpg" alt="Case 3">
+    <h3>Prise en charge complète de la prothèse unitaire implanto-portée</h3>
+  </div>
+  <div class="case" onclick="openGallery(14)">
+    <img src="atelier\atelier malek\DR malek.jpg" alt="Case 3">
+    <h3>Injections d'acide hyalorunique en zone péribuccale et buccale</h3>
+  </div>
+  <div class="case" onclick="openGallery(15)">
+    <img src="atelier\atelier Sabrina\SABRINA.jpg" alt="Case 3">
+    <h3>De la fracture à l'alignement : principes de l'ostéosynthèse en chirurgie maxillo-faciale</h3>
+  </div>
+  <div class="case" onclick="openGallery(18)">
+    <img src="atelier/atelier IBTISSEM/IBTISSEM.jpg" alt="Case 3">
+    <h3>De l'observation au bon choix de la couleur dentaire</h3>
+  </div>
+  <div class="case" onclick="openGallery(19)">
+    <img src="atelier\atelier AMEL\AMEL.jpg" alt="Case 3">
+    <h3>De la planification à la pratique:optimiser la prise en charge des patients</h3>
+  </div>
+  <div class="case" onclick="openGallery(20)">
+    <img src="atelier\atelier CHAIMA\CHAIMA.jpg" alt="Case 3">
+    <h3>Maitriser l'expansion osseuse</h3>
+  </div>
+  <div class="case" onclick="openGallery(21)">
+    <img src="atelier\atelier FOUAD\FOUAD.jpg" alt="Case 3">
+    <h3>Le MV2 et les aidesoptiques: gestion reproductible et simplifiés</h3>
+  </div>
+  <div class="case" onclick="openGallery(22)">
+    <img src="atelier\atelier TOBJI\TOBJI.jpg" alt="Case 3">
+    <h3>La piezochirurgie en pratique clinique</h3>
+  </div>
+   <div class="case" onclick="openGallery(23)">
+    <img src="atelier\atelier RACEM ABID\RACEM.jpg" alt="Case 3">
+    <h3>Allongement chirurgical de la couronne</h3>
+  </div>
+  <div class="case" onclick="openGallery(26)">
+    <img src="atelier\implantation immediate\Screenshot 2026-02-04 141455.png" alt="Case 3">
+    <h3>Extraction implantation immediate</h3>
+  </div>
+</section>
+<section>
+  <h2 class="decor-word">LES masterclass</h2>
+</section>
+
+<!-- CASE GRID (same as before) -->
+<section class="cases">
+    
+  <div class="case" onclick="openGallery(16)">
+    <img src="atelier\masterclass\DR eya.jpg" alt="">
+    <h3>Les ABC en implantologie Orale des bases à la pratique </h3>
+  </div>
+  <div class="case" onclick="openGallery(24)">
+    <img src="atelier\masterclass\RIHAB1.png" alt="">
+    <h3>Soft Tissue Management around Teeth </h3>
+  </div>
+
+
+<!-- MODAL -->
+<div class="modal" id="galleryModal">
+  <span class="close" onclick="closeGallery()">×</span>
+
+  <div class="slider">
+    <button class="nav prev" onclick="moveSlide(-1)">‹</button>
+    <div class="slides">
+      <img src="atelier\masterclass\GROUP.jpg">
+      <img src="atelier\masterclass\DR eya.jpg">
+    </div>
+    <button class="nav next" onclick="moveSlide(1)">›</button>
+  </div>
+</div>
+
+
+
+  <div class="case" onclick="openGallery(17)">
+    <img src="atelier\masterclass\GROUP.jpg" alt="Case 2">
+    <h3>Virtual patient: From Scan To Smile</h3>
+  </div>
+ 
+</section>
+<section>
+  <h2 class="decor-word">LES staff</h2>
+</section>
+<section class="cases">
+    
+  <div class="case" onclick="openGallery(9)">
+    <img src="atelier\Copie de staff finall (Publication Instagram (34)).jpg" alt="">
+    <h3>Place du CBCT en Endodentie</h3>
+  </div>
+   <div class="case" onclick="openGallery(13)">
+    <img src="atelier\staff2.jpg" alt="">
+    <h3></h3>
+  </div>
+   <div class="case" onclick="openGallery(25)">
+    <img src="atelier\staff hind.jpg" alt="">
+    <h3></h3>
+  </div>
+
+
+<!-- MODAL -->
+<div class="modal" id="galleryModal">
+  <span class="close" onclick="closeGallery()">×</span>
+
+  <div class="slider">
+    <button class="nav prev" onclick="moveSlide(-1)">‹</button>
+    <div class="slides">
+      <img src="atelier\Copie de staff finall (Publication Instagram (34)).jpg">
+      <img src="atelier\Copie de staff finall (Publication Instagram (34)).jpg">
+    </div>
+    <button class="nav next" onclick="moveSlide(1)">›</button>
+  </div>
+</div>
+</section>
+<script>
+let currentSlide = 0;
+
+/* ALL GALLERIES HERE */
+const galleries = [
+  [
+    "atelier/Atelier Aladin/1.jpg",
+    "atelier/Atelier Aladin/2.jpg"
+  ],
+  [
+    "atelier/atelier dr kawthar finale/1.jpg",
+    "atelier/atelier dr kawthar finale/2.jpg",
+    "atelier/atelier dr kawthar finale/3.jpg",
+    "atelier/atelier dr kawthar finale/4.jpg",
+    "atelier/atelier dr kawthar finale/6.jpg"
+  ],
+  [
+    "atelier/atelier marwa garma/1.jpg",
+    "atelier/atelier marwa garma/2.jpg",
+  ],
+  [
+    "atelier/atelier shining/1.jpg",
+    "atelier/atelier shining/2.jpg",
+    "atelier/atelier shining/3.jpg",
+  ],
+  [
+    "atelier/atelier Zoheir/1.jpg",
+    "atelier/atelier Zoheir/2.jpg",
+    "atelier/atelier Zoheir/3.jpg",
+  ],
+   [
+    "atelier/kawther deuxieme atelier/1.jpg",
+    "atelier/kawther deuxieme atelier/2.jpg",
+    "atelier/kawther deuxieme atelier/4.jpg",
+  ],
+  [
+    "atelier/atelier tayssir.jpg",
+  ],
+  [
+    "atelier/CONFERENCE DR.jpg",
+  ],
+  [
+    "atelier/atelier mme dhekra/1.jpg",
+    "atelier/atelier mme dhekra/2.jpg",
+    "atelier/atelier mme dhekra/3.jpg",
+    "atelier/atelier mme dhekra/4.jpg",
+  ],
+  [
+    "atelier/Copie de staff finall (Publication Instagram (34)).jpg",
+  ],
+  [
+    "atelier/conférence/DR afif.jpg",
+    "atelier/conférence/DR afif2.jpg",
+  ],
+  [
+    "atelier/conférence/DR refka.jpg",
+  ],
+  [
+    "atelier/conférence/tlili.jpg",
+    "atelier/conférence/tlili2.jpg",
+  ],
+   [
+    "atelier/staff2.jpg",
+  ],
+  [
+    "atelier/atelier malek/DR malek.jpg",
+    "atelier/atelier malek/DR malek2.jpg",
+    "atelier/atelier malek/DR malek3.jpg",
+  ],
+  [
+    "atelier/atelier Sabrina/SABRINA.jpg",
+    "atelier/atelier Sabrina/2.jpg",
+  ],
+   [
+    "atelier/masterclass/DR eya.jpg",
+    "atelier/masterclass/DR eya2.jpg",
+    "atelier/masterclass/DR eya3.jpg",
+  ],
+  [
+    "atelier/masterclass/GROUP.jpg",
+    "atelier/masterclass/GROUP2.jpg",
+  ],
+  [
+    "atelier/atelier IBTISSEM/IBTISSEM.jpg",
+    "atelier/atelier IBTISSEM/IBTISSEM2.jpg",
+    "atelier/atelier IBTISSEM/IBTISSEM3.jpg",
+  ],
+  [
+    "atelier/atelier AMEL/AMEL.jpg",
+    "atelier/atelier AMEL/AMEL2.jpg",
+  ],
+  [
+    "atelier/atelier CHAIMA/CHAIMA.jpg",
+    "atelier/atelier CHAIMA/CHAIMA2.jpg",
+  ],
+  [
+    "atelier/atelier FOUAD/FOUAD.jpg",
+    "atelier/atelier FOUAD/FOUAD2.jpg",
+  ],
+   [
+    "atelier/atelier TOBJI/TOBJI.jpg",
+    "atelier/atelier TOBJI/TOBJI2.jpg",
+  ],
+  [
+    "atelier/atelier RACEM ABID/RACEM.jpg",
+    "atelier/atelier RACEM ABID/RACEM2.jpg",
+  ],
+  [
+    "atelier/masterclass/RIHAB1.png",
+    "atelier/masterclass/RIHAB2.png",
+  ],
+   [
+    "atelier/staff hind.jpg",
+  ],
+  [
+    "atelier/implantation immediate/Screenshot 2026-02-04 141455.png",
+    "atelier/implantation immediate/Screenshot 2026-02-04 141502.png",
+  ],
+];
+
+const modal = document.getElementById("galleryModal");
+const slidesContainer = modal.querySelector(".slides");
+
+function openGallery(index) {
+  slidesContainer.innerHTML = "";
+  currentSlide = 0;
+
+  galleries[index].forEach(src => {
+    const img = document.createElement("img");
+    img.src = src;
+    slidesContainer.appendChild(img);
+  });
+
+  modal.classList.add("show");
+  updateSlide();
+}
+
+function closeGallery() {
+  modal.classList.remove("show");
+}
+
+function moveSlide(direction) {
+  const total = slidesContainer.children.length;
+  currentSlide = (currentSlide + direction + total) % total;
+  updateSlide();
+}
+
+function updateSlide() {
+  slidesContainer.style.transform = `translateX(-${currentSlide * 100}%)`;
+}
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const carousel = document.getElementById("dentalCarousel");
+    const items = carousel.querySelectorAll(".carousel-item");
+    const prevBtn = document.getElementById("carouselPrev");
+    const nextBtn = document.getElementById("carouselNext");
+    const indicators = document.getElementById("carouselIndicators");
+
+    let currentIndex = 0;
+
+    // Create dots
+    items.forEach((_, index) => {
+        const dot = document.createElement("span");
+        dot.classList.add("indicator");
+        if (index === 0) dot.classList.add("active");
+
+        dot.addEventListener("click", () => {
+            goToSlide(index);
+        });
+
+        indicators.appendChild(dot);
+    });
+
+    const dots = indicators.querySelectorAll(".indicator");
+
+    function goToSlide(index) {
+        items[currentIndex].classList.remove("is-active");
+        dots[currentIndex].classList.remove("active");
+
+        currentIndex = index;
+
+        items[currentIndex].classList.add("is-active");
+        dots[currentIndex].classList.add("active");
+    }
+
+    function nextSlide() {
+        const nextIndex = (currentIndex + 1) % items.length;
+        goToSlide(nextIndex);
+    }
+
+    function prevSlide() {
+        const prevIndex = (currentIndex - 1 + items.length) % items.length;
+        goToSlide(prevIndex);
+    }
+
+    nextBtn.addEventListener("click", nextSlide);
+    prevBtn.addEventListener("click", prevSlide);
+});
+
+</script>
+
+</div>
+<section>
+  <h2 class="decor-word">LES CONFERENCES</h2>
+</section>
+
+<!-- CASE GRID (same as before) -->
+<section class="cases">
+    
+
+
+<!-- MODAL -->
+<div class="modal" id="galleryModal">
+  <span class="close" onclick="closeGallery()">×</span>
+
+  <div class="slider">
+    <button class="nav prev" onclick="moveSlide(-1)">‹</button>
+    <div class="slides">
+      <img src="atelier\CONFERENCE DR.jpg">
+    </div>
+    <button class="nav next" onclick="moveSlide(1)">›</button>
+  </div>
+</div>
+
+
+
+  <div class="case" onclick="openGallery(7)">
+    <img src="atelier\CONFERENCE DR.jpg" alt="Case 2">
+    <h3>Aesthetic rehabilitation from Digital case analysis to long term success</h3>
+  </div>
+  <div class="case" onclick="openGallery(10)">
+    <img src="atelier\conférence\DR afif.jpg" alt="Case 2">
+    <h3>Régénération osseuse guidée :L'atout incontournable de la chirurgie implantaire</h3>
+  </div>
+  <div class="case" onclick="openGallery(11)">
+    <img src="atelier\conférence\DR refka.jpg" alt="Case 2">
+    <h3>From Minimalism to Naturalnes</h3>
+  </div>
+  <div class="case" onclick="openGallery(12)">
+    <img src="atelier\conférence\tlili.jpg" alt="Case 2">
+    <h3>Photogrammétrie:le nouveau standard de pécision en implantologie</h3>
+  </div>
+</script> 
+
+<script>
+    
+    
+/* ELEMENTS */
+const dotsContainer = document.getElementById("sliderDots");
+const prevBtn = document.getElementById("prevSlide");
+const nextBtn = document.getElementById("nextSlide");
+
+let current = 0;
+
+/* CREATE DOTS dynamically */
+slides.forEach((_, i) => {
+    const dot = document.createElement("button");
+    if (i === 0) dot.classList.add("active");
+    dot.addEventListener("click", () => goToSlide(i));
+    dotsContainer.appendChild(dot);
+});
+
+/* Now select dots after creation */
+let dots = dotsContainer.querySelectorAll("button");
+
+/* SLIDE FUNCTION */
+function goToSlide(i) {
+    slides[current].classList.remove("active");
+    dots[current].classList.remove("active");
+
+    current = (i + slides.length) % slides.length;
+
+    slides[current].classList.add("active");
+    dots[current].classList.add("active");
+}
+
+/* ARROW BUTTONS */
+nextBtn.addEventListener("click", () => goToSlide(current + 1));
+prevBtn.addEventListener("click", () => goToSlide(current - 1));
+
+/* AUTOPLAY */
+setInterval(() => goToSlide(current + 1), 5000);
+</script>
+
+</section>
+
+<div class="event-video">
+    <iframe 
+        src="animation ciemd13 dimension 2.1.mp4"
+        frameborder="0"
+        allow="autoplay; encrypted-media"
+        allowfullscreen>
+    </iframe>
+</div>
+
+
+
+
+ <section id="news" class="section container fade">
+    <h2>Actualités récentes</h2>
+    <div class="news-list"></div>
+  </section>
+</body>
+</html>

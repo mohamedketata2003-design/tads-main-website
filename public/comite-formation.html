@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Événements – Comité formation</title>
+  <link rel="stylesheet" href="style.css?v=8" />
+  <link rel="icon" type="image/png" href="tads logo with background.png">
+</head>
+
+<body>
+  <div class="page-bg" style="background-image: url('comitee formation (1).png');"></div>
+    <header class="nav-wrap">
+    <div class="container nav">
+      <nav class="nav-links" id="navLinks">
+        <img src="TADS Logo.png" alt="TADS logo" class="logo" />
+        <a href="index.html#hero">Accueil</a>
+        <a href="index.html#about">Présentation</a>
+        <a href="index.html#events">Événements</a>
+        <a href="index.html#comities">Comités</a>
+        <a href="index.html#news">Actualités</a>
+        <a href="index.html#sponsors">Sponsors</a>
+        <a href="index.html#contact">Contact</a>
+      </nav>
+      <button class="hamburger" id="hamburger" aria-label="menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+  
+<div style="height: 100px;"></div>
+<section class="section container fade show">
+  <h2>Événements – Comité formation</h2>
+  <div class="events-grid"></div>
+</section>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+  import { getFirestore, collection, query, where, onSnapshot }
+    from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyCogv-v2t8OoiFKKNF30dfwMVKNJhAvjSw",
+    authDomain: "tads-d14eb.firebaseapp.com",
+    projectId: "tads-d14eb",
+    storageBucket: "tads-d14eb.firebasestorage.app",
+    messagingSenderId: "396988261378",
+    appId: "1:396988261378:web:4f195d2821e142af24731b",
+    measurementId: "G-SSKPX7D6W4"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  // FIXED 👇 must match EXACT Firestore value!
+  const THIS_COMMITTEE = "formation";
+
+  // FIXED 👇 removed orderBy to avoid index error
+  const qEvents = query(
+    collection(db, "events"),
+    where("committee", "==", THIS_COMMITTEE)
+  );
+
+  onSnapshot(qEvents, (snapshot) => {
+    const grid = document.querySelector(".events-grid");
+    grid.innerHTML = "";
+
+    if (snapshot.empty) {
+      grid.innerHTML = `<p class="muted">Aucun événement pour ce comité.</p>`;
+      return;
+    }
+
+    snapshot.forEach(doc => {
+      const d = doc.data();
+
+      grid.innerHTML += `
+        <div class="event-card">
+          <img src="${d.image}" class="event-thumb" alt="">
+          <h3>${d.title}</h3>
+          <p>${d.date} — ${d.location}</p>
+          <p>${d.description || ""}</p>
+          ${d.link ? `<a class="small-btn" href="${d.link}" target="_blank">Détails</a>` : ""}
+        </div>
+      `;
+    });
+  });
+
+</script>
+<section class="clubs container fade show">
+  <div class="club-info">  
+        <div class="club-card">
+          <img src="clubs\anatmazing.jpg" alt="National Dental Congress" class="event-img">
+            <h3>Club d'Anatomie</h3> 
+        </div>
+        <div class="club-info">  
+        <div class="club-card">
+          <img src="clubs/radio.jpg" alt="National Dental Congress" class="event-img">
+            <h3>Club de Radio</h3> 
+        </div>
+</section>
+<script type="module" src="script.js"></script>
+</body>
+</html>

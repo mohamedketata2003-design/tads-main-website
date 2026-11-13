@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>TADS — Admin Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root{--navy:#17345d;--gold:#c93737;--muted:#ffffff}
+    body{font-family:Inter,system-ui;background:#f5f8ff;margin:0}
+    .sidebar{width:260px;position:fixed;left:0;top:0;bottom:0;background:var(--navy);color:#fff;padding:20px}
+    .sidebar h2{color:var(--gold);font-weight:700}
+    .main{margin-left:280px;padding:22px}
+    .card{background:#fff;border-radius:12px;padding:16px;margin-bottom:16px;box-shadow:0 8px 24px rgba(13,40,77,0.06)}
+    .btn{background:var(--navy);color:#fff;padding:8px 10px;border-radius:8px;border:0}
+    .danger{background:#b82b2b}
+    .small{font-size:13px;color:#6b7280}
+    img.logo{height:56px;border-radius:8px}
+    .row{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}
+    input,textarea{width:100%;padding:8px;border-radius:8px;border:1px solid #e5e7eb}
+    .list-item{background:#f8fafc;padding:10px;border-radius:10px;display:flex;justify-content:space-between;align-items:center}
+    .muted{color:#6b7280;font-size:13px}
+  </style>
+</head>
+<body>
+  <aside class="sidebar">
+    <img src="/mnt/data/bd254625-9b0a-45f6-821c-5a277b75f41c.png" alt="TADS" class="logo" />
+    <h2 class="mt-3">T.A.D.S — Admin</h2>
+    <p class="small">Email: <span id="admin-email" class="muted"></span></p>
+    <nav class="mt-6">
+      <a href="#slider" class="block py-2">Slider</a>
+      <a href="#gallery" class="block py-2">Gallery</a>
+      <a href="#events" class="block py-2">Events</a>
+      <a href="#news" class="block py-2">News</a>
+      <a href="#sponsors" class="block py-2">Sponsors</a>
+      <a href="#admins" class="block py-2">Admins</a>
+      <a href="#" id="btnLogout" class="block py-2 text-red-300">Logout</a>
+    </nav>
+  </aside>
+
+  <main class="main">
+    <h1 class="text-2xl font-bold mb-4">Panneau d'administration</h1>
+
+    <!-- Slider Manager -->
+    <section id="slider" class="card">
+      <h3 class="text-lg font-semibold">1 — Slider Manager</h3>
+      <p class="small">Add / delete slides + upload image + title + text + button.</p>
+
+      <div class="row mt-4">
+        <div>
+          <label>Titre</label>
+          <input id="slide-title" placeholder="Titre" />
+          <label class="mt-2">Texte</label>
+          <textarea id="slide-text" rows="3" placeholder="Texte"></textarea>
+          <label class="mt-2">Image</label>
+          <input id="slide-file" type="file" accept="image/*" />
+          <label class="mt-2">Bouton URL (optionnel)</label>
+          <input id="slide-url" placeholder="https://..." />
+          <div class="mt-3">
+           <div class="mt-3"><button id="addSlideBtn" class="btn">Ajouter</button></div>
+        </div>
+        </div>
+
+        <div>
+          <h4 class="font-semibold">Slides existants</h4>
+          <div id="slides-list" class="mt-3 space-y-2"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Gallery Manager -->
+    <section id="gallery" class="card">
+      <h3 class="text-lg font-semibold">2 — Gallery Manager</h3>
+      <p class="small">Upload / remove images for the presentation/gallery or news.</p>
+      <div class="row mt-4">
+        <div>
+          <label>Image</label>
+          <input id="gallery-file" type="file" accept="image/*" />
+          <label class="mt-2">Titre (optionnel)</label>
+          <input id="gallery-title" />
+          <label class="mt-2">Description (optionnel)</label>
+          <textarea id="gallery-desc" rows="2"></textarea>
+          <div class="mt-3"><button id="uploadGalleryBtn" class="btn">Upload to Gallery</button></div>
+        </div>
+        <div>
+          <h4 class="font-semibold">Gallery items</h4>
+          <div id="gallery-list" class="mt-3 space-y-2"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Events Manager -->
+    <section id="events" class="card">
+      <h3 class="text-lg font-semibold">3 — Events Manager</h3>
+      <p class="small">Add / edit / delete events (title, date, description, image).</p>
+      <div class="row mt-4">
+        <div>
+          <label>Title</label><input id="event-title" />
+          <label class="mt-2">Date</label><input id="event-date" type="date" />
+          <label class="mt-2">Location</label><input id="event-location" />
+          <label class="mt-2">Description</label><textarea id="event-desc" rows="3"></textarea>
+          <label class="mt-2">Image</label><input id="event-file" type="file" accept="image/*" />
+          <label class="mt-2">Link (optional)</label><input id="event-link" />
+          <div class="mt-3"><button id="saveEventBtn" class="btn">Save Event</button></div>
+        </div>
+          <div class="mt-3"><button id="clearEventBtn" class="btn">Clear Event</button></div>
+        </div>
+        </div>
+        <div>
+          <h4 class="font-semibold">Events list</h4>
+          <div id="events-list" class="mt-3 space-y-2"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- News Manager -->
+    <section id="news" class="card">
+      <h3 class="text-lg font-semibold">4 — News Manager</h3>
+      <p class="small">Add / edit / delete news articles.</p>
+      <div class="row mt-4">
+        <div>
+          <label>Title</label><input id="news-title" />
+          <label class="mt-2">Description</label><textarea id="news-desc" rows="3"></textarea>
+          <label class="mt-2">Image</label><input id="news-file" type="file" accept="image/*" />
+          <div class="mt-3"><button id="saveNews" class="btn">Save News</button></div>
+        </div>
+        <div>
+          <h4 class="font-semibold">News list</h4>
+          <div id="news-list" class="mt-3 space-y-2"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sponsors Manager -->
+    <section id="sponsors" class="card">
+      <h3 class="text-lg font-semibold">5 — Sponsors Manager</h3>
+      <p class="small">Upload / remove sponsor logos.</p>
+      <div class="row mt-4">
+        <div>
+          <label>Logo Image</label><input id="sponsor-file" type="file" accept="image/*" />
+          <label class="mt-2">Sponsor name (opt)</label><input id="sponsor-name" />
+          <div class="mt-3"><button id="uploadSponsorBtn" class="btn">Upload Sponsor</button></div>
+        </div>
+        <div>
+          <h4 class="font-semibold">Sponsors list</h4>
+          <div id="sponsors-list" class="mt-3 space-y-2"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Admins management -->
+    <section id="admins" class="card">
+      <h3 class="text-lg font-semibold">6 — Admins & Users</h3>
+      <p class="small">Approve new accounts by creating an entry under <code>/admins/{uid}</code>.</p>
+      <div class="row mt-3">
+        <div>
+          <label>User email to lookup</label><input id="user-email" placeholder="user@example.com" />
+          <div class="mt-2">
+            <button class="btn" onclick="lookupUserByEmail()">Find user</button>
+          </div>
+          <div class="mt-3 muted small" id="lookup-result"></div>
+        </div>
+        <div>
+          <h4 class="font-semibold">Admins list</h4>
+          <div id="admins-list" class="mt-3 space-y-2"></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="card">
+      <h3 class="text-lg font-semibold">Realtime Log</h3>
+      <pre id="debug" style="white-space:pre-wrap;max-height:180px;overflow:auto"></pre>
+    </div>
+  </main>
+
+  <!-- Firebase SDK + Cloudinary -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+    import {
+      getFirestore, collection, doc, setDoc, getDoc, addDoc, updateDoc, deleteDoc,
+      onSnapshot, query, orderBy, where, getDocs, serverTimestamp
+    } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+
+    // ADDED GLOBAL EXPOSURE FOR LOOKUP (required by dynamic button logic)
+    // NOTE: This function needs to be implemented. It is defined here to prevent a crash.
+    async function lookupUserByEmail() {
+      const email = document.getElementById('user-email').value;
+      dbg("lookupUserByEmail clicked. Searching for: " + email);
+      document.getElementById('lookup-result').textContent = `Searching for user: ${email} (Function requires Firebase Admin SDK or Cloud Function to be fully operational)`;
+    }
+    window.lookupUserByEmail = lookupUserByEmail; 
+
+    // CONFIG
+    const firebaseConfig = {
+      apiKey: "AIzaSyAYAZPWZHroY7w3bg8Bsikjj4WtFKVf1ko",
+      authDomain: "tads-d14eb.firebaseapp.com",
+      projectId: "tads-d14eb",
+      storageBucket: "tads-d14eb.firebasestorage.app",
+      messagingSenderId: "396988261378",
+      appId: "1:396988261378:web:4f195d2821e142af24731b",
+      measurementId: "G-SSKPX7D6W4"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    const debugEl = document.getElementById('debug');
+    function dbg(msg){ debugEl.textContent = new Date().toLocaleTimeString() + ' — ' + msg + '\n' + debugEl.textContent; }
+
+    // -------------------------
+    // Cloudinary Upload
+    // -------------------------
+    async function uploadToCloudinary(file, folder) {
+      const form = new FormData();
+      form.append("file", file);
+      form.append("upload_preset", "TADS.tn");
+      form.append("folder", folder);
+
+      const res = await fetch("https://api.cloudinary.com/v1_1/difk7ovvp/image/upload", {
+        method: "POST",
+        body: form
+      });
+
+      const data = await res.json();
+      return {
+        url: data.secure_url,
+        path: data.public_id,
+        deleteToken: data.delete_token
+      };
+    }
+
+    // -------------------------
+    // Cloudinary Delete by Token
+    // -------------------------
+    async function deleteFromCloudinary(token) {
+      try {
+        const res = await fetch(`https://api.cloudinary.com/v1_1/difk7ovvp/delete_by_token`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ token })
+        });
+        return await res.json();
+      } catch (err) {
+        console.error("Cloudinary delete error:", err);
+      }
+    }
+
+    // -------------------------
+    // SLIDER
+    // -------------------------
+    async function uploadSlide() {
+      try {
+        const title = document.getElementById('slide-title').value;
+        const text = document.getElementById('slide-text').value;
+        const urlInput = document.getElementById('slide-url').value;
+        const file = document.getElementById('slide-file').files[0];
+        if (!file) return alert('Choose an image');
+
+        const { url, path, deleteToken } = await uploadToCloudinary(file, 'slider');
+
+        await addDoc(collection(db, 'slider'), {
+          title, text, url, path, deleteToken,
+          urlButton: urlInput,
+          createdAt: serverTimestamp()
+        });
+
+        document.getElementById('slide-title').value='';
+        document.getElementById('slide-text').value='';
+        document.getElementById('slide-file').value='';
+        document.getElementById('slide-url').value='';
+
+        dbg('Slide uploaded');
+      } catch (e) { console.error(e); alert(e.message) }
+    }
+
+    async function deleteSlide(id, path, token) {
+      if (!confirm("Delete slide?")) return;
+      try {
+        if (token) await deleteFromCloudinary(token);
+        await deleteDoc(doc(db, "slider", id));
+        dbg("Slide deleted: " + id);
+      } catch (e) {
+        console.error(e); alert(e.message);
+      }
+    }
+    window.deleteSlide = deleteSlide; // EXPOSED for dynamic HTML
+
+    // -------------------------
+    // GALLERY
+    // -------------------------
+    async function uploadGallery() {
+      try {
+        const file = document.getElementById('gallery-file').files[0];
+        if (!file) return alert('Choose file');
+
+        const title = document.getElementById('gallery-title').value || '';
+        const desc = document.getElementById('gallery-desc').value || '';
+
+        const { url, path, deleteToken } = await uploadToCloudinary(file, 'gallery');
+
+        await addDoc(collection(db, 'gallery'), {
+          title,
+          description: desc,
+          url,
+          path,
+          deleteToken,
+          createdAt: serverTimestamp()
+        });
+
+        document.getElementById('gallery-file').value='';
+        document.getElementById('gallery-title').value='';
+        document.getElementById('gallery-desc').value='';
+
+        dbg('Gallery image uploaded');
+      } catch (e) { console.error(e); alert(e.message) }
+    }
+
+    async function deleteGallery(id, path, token) {
+      if (!confirm('Delete image?')) return;
+      try {
+        if (token) await deleteFromCloudinary(token);
+        await deleteDoc(doc(db, "gallery", id));
+        dbg("Gallery entry deleted: " + id);
+      } catch (e) {
+        console.error(e); alert(e.message);
+      }
+    }
+    window.deleteGallery = deleteGallery; // EXPOSED for dynamic HTML
+
+    // -------------------------
+    // EVENTS
+    // -------------------------
+    let editingEventId = null;
+
+    async function saveEvent() {
+      try {
+        const title = document.getElementById('event-title').value;
+        const date = document.getElementById('event-date').value;
+        const location = document.getElementById('event-location').value;
+        const desc = document.getElementById('event-desc').value;
+        const link = document.getElementById('event-link').value || '';
+
+        let imageUrl = '', imagePath = '', deleteToken = '';
+        const fileInput = document.getElementById('event-file');
+
+        if (fileInput.files.length) {
+          const res = await uploadToCloudinary(fileInput.files[0], 'events');
+          imageUrl = res.url;
+          imagePath = res.path;
+          deleteToken = res.deleteToken;
+          fileInput.value = '';
+        }
+
+        const data = {
+          title,
+          date,
+          location,
+          description: desc,
+          link,
+          imageUrl,
+          imagePath,
+          deleteToken,
+          updatedAt: serverTimestamp()
+        };
+
+        if (editingEventId) {
+          await updateDoc(doc(db, 'events', editingEventId), data);
+          dbg('Event updated ' + editingEventId);
+          editingEventId = null;
+        } else {
+          await addDoc(collection(db, 'events'), data);
+          dbg('Event added');
+        }
+
+        clearEventForm();
+      } catch (e) { console.error(e); alert(e.message) }
+    }
+
+    function clearEventForm(){
+      editingEventId=null;
+      document.getElementById('event-title').value='';
+      document.getElementById('event-date').value='';
+      document.getElementById('event-location').value='';
+      document.getElementById('event-desc').value='';
+      document.getElementById('event-file').value='';
+      document.getElementById('event-link').value='';
+      dbg('Event form cleared'); 
+    }
+    window.clearEventForm = clearEventForm; // EXPOSED for dynamic HTML
+
+    async function deleteEvent(id) {
+      if (!confirm('Delete event?')) return;
+      try {
+        const ref = doc(db, "events", id);
+        const snap = await getDoc(ref);
+
+        if (snap.exists()) {
+          const d = snap.data();
+          if (d.deleteToken) await deleteFromCloudinary(d.deleteToken);
+        }
+
+        await deleteDoc(ref);
+        dbg("Event deleted " + id);
+      } catch(e){ console.error(e); alert(e.message) }
+    }
+    window.deleteEvent = deleteEvent; // EXPOSED for dynamic HTML
+
+    // -------------------------
+    // NEWS
+    // -------------------------
+    let editingNewsId = null;
+
+    async function saveNews() {
+      try {
+        const title = document.getElementById('news-title').value;
+        const desc = document.getElementById('news-desc').value;
+
+        const file = document.getElementById('news-file').files[0];
+        let url='', path='', deleteToken='';
+
+        if (file) {
+          const res = await uploadToCloudinary(file, 'news');
+          url = res.url;
+          path = res.path;
+          deleteToken = res.deleteToken;
+          document.getElementById('news-file').value='';
+        }
+
+        const data = {
+          title,
+          description: desc,
+          url,
+          path,
+          deleteToken,
+          createdAt: serverTimestamp()
+        };
+
+        if (editingNewsId) {
+          await updateDoc(doc(db, 'news', editingNewsId), data);
+          editingNewsId = null;
+        } else {
+          await addDoc(collection(db, 'news'), data);
+        }
+
+        document.getElementById('news-title').value='';
+        document.getElementById('news-desc').value='';
+
+        dbg('News saved');
+      } catch (e) { console.error(e); alert(e.message) }
+    }
+
+    async function deleteNews(id) {
+      if (!confirm('Delete news?')) return;
+      try {
+        const ref = doc(db, "news", id);
+        const snap = await getDoc(ref);
+
+        if (snap.exists()) {
+          const d = snap.data();
+          if (d.deleteToken) await deleteFromCloudinary(d.deleteToken);
+        }
+
+        await deleteDoc(ref);
+        dbg("News deleted: " + id);
+
+      } catch (e) {
+        console.error(e); alert(e.message);
+      }
+    }
+    window.deleteNews = deleteNews; // EXPOSED for dynamic HTML
+
+    // -------------------------
+    // SPONSORS
+    // -------------------------
+    async function uploadSponsor() {
+      try {
+        dbg('Attempting Sponsor Upload.'); 
+        const file = document.getElementById('sponsor-file').files[0];
+        if (!file) return alert('Choose file');
+
+        const name = document.getElementById('sponsor-name').value || '';
+
+        const { url, path, deleteToken } = await uploadToCloudinary(file, 'sponsors');
+
+        await addDoc(collection(db, 'sponsors'), {
+          name,
+          url,
+          path,
+          deleteToken,
+          createdAt: serverTimestamp()
+        });
+
+        document.getElementById('sponsor-file').value='';
+        document.getElementById('sponsor-name').value='';
+
+        dbg('Sponsor uploaded successfully.'); 
+      } catch (e) { console.error(e); alert(e.message) }
+    }
+
+    async function deleteSponsor(id, path, token) {
+      if (!confirm('Delete sponsor?')) return;
+      try {
+        if (token) await deleteFromCloudinary(token);
+        await deleteDoc(doc(db, "sponsors", id));
+        dbg("Sponsor deleted: " + id);
+      } catch (e) {
+        console.error(e); alert(e.message);
+      }
+    }
+    window.deleteSponsor = deleteSponsor; // EXPOSED for dynamic HTML
+
+    // -------------------------
+    // ADMINS LIST
+    // -------------------------
+    onSnapshot(query(collection(db,'admins'), orderBy('createdAt')), snap => {
+      const el = document.getElementById('admins-list'); el.innerHTML = '';
+      snap.forEach(d => {
+        const data = d.data();
+        const div = document.createElement('div');
+        div.className = 'list-item';
+        div.innerHTML = `
+          <div>
+            <strong>${data.email||d.id}</strong>
+            <div class="muted">${data.role||''}</div>
+          </div>
+          <div style="display:flex;gap:8px">
+            <button class="btn danger" onclick="removeAdmin('${d.id}')">Revoke</button>
+          </div>`;
+        el.appendChild(div);
+      });
+    });
+
+    async function removeAdmin(id) {
+      if (!confirm('Revoke admin rights?')) return;
+      try {
+        await deleteDoc(doc(db,'admins',id));
+        dbg('Admin removed ' + id);
+      } catch (e) { console.error(e); alert(e.message) }
+    }
+    window.removeAdmin = removeAdmin; // EXPOSED for dynamic HTML
+
+    // -------------------------
+    // AUTH CHECK
+    // -------------------------
+    onAuthStateChanged(auth, async (user) => {
+      if (!user) {
+        window.location.href = 'login.html'; // Redirect if not signed in
+        return;
+      }
+
+      document.getElementById('admin-email').textContent = user.email || user.uid;
+      dbg('Signed in: ' + (user.email || user.uid));
+
+      // Admin check (Optional, but good for security)
+      const adminDoc = await getDoc(doc(db, 'admins', user.uid));
+      if (!adminDoc.exists()) {
+        alert('Compte non autorisé.');
+        await signOut(auth);
+        window.location.href = 'login.html';
+        return;
+      }
+    });
+    
+    // -------------------------
+    // EVENT LISTENERS (ATTACH ALL STATIC BUTTONS)
+    // -------------------------
+    // FIX: Wrap in DOMContentLoaded to ensure elements exist before binding listeners.
+    document.addEventListener('DOMContentLoaded', () => { 
+    const buttons = [
+        { id: "btnLogout", handler: async () => { await signOut(auth); window.location.href = 'login.html'; } },
+        { id: "addSlideBtn", handler: uploadSlide },
+        { id: "uploadGalleryBtn", handler: uploadGallery },
+        { id: "saveEventBtn", handler: saveEvent },
+        { id: "clearEventBtn", handler: clearEventForm },
+        { id: "saveNewsBtn", handler: saveNews },
+        { id: "uploadSponsorBtn", handler: uploadSponsor },
+        { id: "lookupUserBtn", handler: lookupUserByEmail }
+    ];
+
+    let successCount = 0;
+    
+    buttons.forEach(btn => {
+        const element = document.getElementById(btn.id);
+        if (element) {
+            element.addEventListener("click", btn.handler);
+            successCount++;
+        } else {
+            console.error(`ERROR: Button with ID "${btn.id}" not found in the DOM.`);
+            dbg(`ERROR: Button ID "${btn.id}" not found.`);
+        }
+    });
+
+    if (successCount === buttons.length) {
+        dbg('All static button listeners successfully attached.');
+    } else {
+        dbg(`Attached ${successCount} of ${buttons.length} static buttons. See console for errors.`);
+    }
+});
+  </script>
+
+</body>
+</html>

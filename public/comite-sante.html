@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Événements – Comité santé</title>
+  <link rel="stylesheet" href="style.css?v=5" />
+  <link rel="icon" type="image/png" href="tads logo with background.png">
+</head>
+
+<body>
+  <div class="page-bg" style="background-image: url('comitee santé.png');"></div>
+    <header class="nav-wrap">
+    <div class="container nav">
+      <nav class="nav-links" id="navLinks">
+        <img src="TADS Logo.png" alt="TADS logo" class="logo" />
+        <a href="index.html#hero">Accueil</a>
+        <a href="index.html#about">Présentation</a>
+        <a href="index.html#events">Événements</a>
+        <a href="index.html#comities">Comités</a>
+        <a href="index.html#news">Actualités</a>
+        <a href="index.html#sponsors">Sponsors</a>
+        <a href="index.html#contact">Contact</a>
+      </nav>
+      <button class="hamburger" id="hamburger" aria-label="menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+  
+<div style="height: 100px;"></div>
+<section class="section container fade show">
+  <h2>Événements – Comité santé</h2>
+  <div class="tads-book-section">
+
+    <div class="tads-book-heading">
+      <span>OUR MEMORIES</span>
+      <h3>Events Booklet</h3>
+      <p>Discover our moments through the years.</p>
+    </div>
+
+    <div class="tads-book-stage">
+      <div class="tads-book" id="tadsBook">
+        <!-- Les 10 photos seront ajoutées par JavaScript -->
+      </div>
+    </div>
+
+    <div class="tads-book-controls">
+      <button id="bookPrev" type="button" disabled>
+        &#8592; Previous
+      </button>
+      <button id="bookFullscreen" type="button">
+       ⛶ Full Screen
+      </button>
+      <span id="bookCounter">Page 1–2 / 10</span>
+
+      <button id="bookNext" type="button">
+        Next &#8594;
+      </button>
+    </div>
+
+  </div>
+  <div class="events-grid"></div>
+</section>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+  import { getFirestore, collection, query, where, onSnapshot }
+    from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyCogv-v2t8OoiFKKNF30dfwMVKNJhAvjSw",
+    authDomain: "tads-d14eb.firebaseapp.com",
+    projectId: "tads-d14eb",
+    storageBucket: "tads-d14eb.firebasestorage.app",
+    messagingSenderId: "396988261378",
+    appId: "1:396988261378:web:4f195d2821e142af24731b",
+    measurementId: "G-SSKPX7D6W4"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  // FIXED 👇 must match EXACT Firestore value!
+  const THIS_COMMITTEE = "santé";
+
+  // FIXED 👇 removed orderBy to avoid index error
+  const qEvents = query(
+    collection(db, "events"),
+    where("committee", "==", THIS_COMMITTEE)
+  );
+
+  onSnapshot(qEvents, (snapshot) => {
+    const grid = document.querySelector(".events-grid");
+    grid.innerHTML = "";
+
+    if (snapshot.empty) {
+      grid.innerHTML = `<p class="muted">Aucun événement pour ce comité.</p>`;
+      return;
+    }
+
+    snapshot.forEach(doc => {
+      const d = doc.data();
+
+      grid.innerHTML += `
+        <div class="event-card">
+          <img src="${d.image}" class="event-thumb" alt="">
+          <h3>${d.title}</h3>
+          <p>${d.date} — ${d.location}</p>
+          <p>${d.description || ""}</p>
+          ${d.link ? `<a class="small-btn" href="${d.link}" target="_blank">Détails</a>` : ""}
+        </div>
+      `;
+    });
+  });
+
+</script>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  const photos = [
+    "bma-booklet/1.png",
+    "bma-booklet/2.png",
+    "bma-booklet/3.png",
+    "bma-booklet/4.png",
+    "bma-booklet/5.png",
+    "bma-booklet/6.png",
+    "bma-booklet/7.png",
+    "bma-booklet/8.png",
+    "bma-booklet/9.png",
+    "bma-booklet/10.png",
+    "bma-booklet/11.png",
+  ];
+
+  const book = document.getElementById("tadsBook");
+  const nextBtn = document.getElementById("bookNext");
+  const prevBtn = document.getElementById("bookPrev");
+  const counter = document.getElementById("bookCounter");
+
+  if (!book || !nextBtn || !prevBtn) return;
+
+  const sheets = [];
+  let currentPage = 0;
+
+  // Create one sheet per photo
+  photos.forEach((photo, index) => {
+
+    const sheet = document.createElement("div");
+    sheet.className = "tads-book-sheet";
+
+    const front = document.createElement("div");
+    front.className = "tads-book-face front";
+
+    const img = document.createElement("img");
+    img.src = photo;
+    img.alt = "TADS booklet page " + (index + 1);
+    img.draggable = false;
+
+    front.appendChild(img);
+    sheet.appendChild(front);
+
+    book.appendChild(sheet);
+
+    sheets.push(sheet);
+
+  });
+
+  function updateBook() {
+
+    sheets.forEach((sheet, index) => {
+
+      const turned = index < currentPage;
+
+      sheet.classList.toggle("turned", turned);
+
+      sheet.style.zIndex = turned
+        ? index + 1
+        : sheets.length - index + 10;
+
+    });
+
+    prevBtn.disabled = currentPage === 0;
+    nextBtn.disabled = currentPage === sheets.length;
+
+    counter.textContent =
+      currentPage === sheets.length
+        ? "End of booklet"
+        : `Page ${currentPage + 1} / ${photos.length}`;
+
+  }
+
+  nextBtn.addEventListener("click", () => {
+
+    if (currentPage < sheets.length) {
+      currentPage++;
+      updateBook();
+    }
+
+  });
+
+  prevBtn.addEventListener("click", () => {
+
+    if (currentPage > 0) {
+      currentPage--;
+      updateBook();
+    }
+
+  });
+
+  updateBook();
+
+});
+</script>
+
+
+<script type="module" src="script.js"></script>
+</body>
+</html>

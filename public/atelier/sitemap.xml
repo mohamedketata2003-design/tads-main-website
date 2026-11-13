@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://tads-d14eb.web.app/</loc>
+    <lastmod>2026-01-22</lastmod>
+    <priority>1.0</priority>
+  </url>
+  <url>
+  <loc>https://tads-d14eb.web.app/CIEMD.html</loc>
+  <lastmod>2026-01-22</lastmod>
+  <priority>0.8</priority>
+</url>
+
+<url>
+  <loc>https://tads-d14eb.web.app/comite-loisir.html</loc>
+  <lastmod>2026-01-22</lastmod>
+  <priority>0.7</priority>
+</url>
+<url>
+  <loc>https://tads-d14eb.web.app/comite-formation.html</loc>
+  <lastmod>2026-01-22</lastmod>
+  <priority>0.6</priority>
+</url>
+
+<url>
+  <loc>https://tads-d14eb.web.app/comite-humanitaire.html</loc>
+  <lastmod>2026-01-22</lastmod>
+  <priority>0.5</priority>
+</url>
+<url>
+  <loc>https://tads-d14eb.web.app/comite-sante.html</loc>
+  <lastmod>2026-01-22</lastmod>
+  <priority>0.4</priority>
+</url>
+
+<url>
+  <loc>https://tads-d14eb.web.app/comite-sport.html</loc>
+  <lastmod>2026-01-22</lastmod>
+  <priority>0.3</priority>
+</url>
+
+
+</urlset>

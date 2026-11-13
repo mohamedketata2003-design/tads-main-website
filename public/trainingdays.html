@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Training Days – TADS</title>
+
+<link rel="stylesheet" href="CIEMD.css?v=4" />
+<link rel="icon" type="image/png" href="tads logo with background.png">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+<!-- Gallery fix: images slide one at a time (side by side), never stacked -->
+<style>
+  #galleryModal .slider{
+    position:relative;
+    overflow:hidden;
+    width:min(92vw,520px);
+    margin:auto;
+  }
+  #galleryModal .slides{
+    display:flex !important;
+    flex-direction:row !important;
+    flex-wrap:nowrap !important;
+    transition:transform .4s ease;
+  }
+  #galleryModal .slides img{
+    flex:0 0 100% !important;
+    width:100% !important;
+    max-height:90vh;
+    object-fit:contain;
+  }
+</style>
+</head>
+<body>
+  <div class="page-bg" style="background-image: url('charte congres.png');"></div>
+
+  <header class="container nav">
+    <nav class="nav-links" id="navLinks">
+      <img src="TADS Logo.png" alt="TADS logo" class="logo" />
+      <a href="index.html#hero">Accueil</a>
+      <a href="index.html#about">Présentation</a>
+      <a href="index.html#events">Événements</a>
+      <a href="index.html#comities">Comités</a>
+      <a href="index.html#news">Actualités</a>
+      <a href="index.html#sponsors">Sponsors</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+    <button class="hamburger" id="hamburger" aria-label="menu">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <!-- HERO SLIDER -->
+  <div class="hero-slider" id="teslaSlider">
+    <div class="slide active" style="background-image:url('training days/training_days_1774x570.png')">
+      <div class="slide-overlay-content">
+        <h1 class="slide-title">.</h1>
+        <p class="slide-subtitle">.</p>
+      </div>
+    </div>
+    <div class="slide" style="background-image:url('public/training days/photo de couverture.png')"></div>
+    <div class="slide" style="background-image:url('public/training days/training days 1.0.jpg')"></div>
+
+    <button class="arrow left" id="prevSlide">&#10094;</button>
+    <button class="arrow right" id="nextSlide">&#10095;</button>
+
+    <div class="slider-dots" id="sliderDots"></div>
+  </div>
+
+  <div class="event-page">
+    <p class="playfair-heading">training days</p>
+    <p class="playfair-bold">organisé depuis 12 ans,le congrès international des etudiants en médecine dentaire , est un Événement extraordinaire qui rassemble des étudiants et des dentistes Tunisiens et internationaux, offrant aisni à nos partenaires une occasion unique d'atteindre un public de grande valeur.
+      LE CIEMD prend de plus d'ampleur tant qu niveau scientifique que social et comporte en ces jours plusieurs conférenciers inter-nationaux ,différents ateliers diversifiés et plus de 500 participants de tout àge allant d'étudiants en 1ère année jusqu'aux internes ,résidents,omnipraticiens et des proffesseurs en médecine dentaire.
+      Cet élement fournit une plateforme priviligée pour favoriser les connexions,l'échange de connaissances et le développement des compétences dans le domaine de la dentisterie
+    </p>
+  </div>
+
+  <section class="tesla-showcase">
+    <div class="tesla-card2">
+      <img src="training days/formulaire.png" class="tesla-img" alt="Formulaire de préinscription">
+
+      <div class="tesla-overlay">
+        <h2 class="tesla-title">Formulaire De Préinscription</h2>
+      </div>
+
+      <span class="coming-soon-label">COMING SOON</span>
+    </div>
+  </section>
+
+  <!-- VENDREDI -->
+  <section>
+    <h2 class="decor-word">Vendredi /Conférences </h2>
+  </section>
+  <section>
+    <h2 class="playfair-heading">18:30-10:30 </h2>
+  </section>
+
+  <section class="cases">
+    <div class="case" onclick="openGallery(0)">
+      <img src="training days/conference.png" alt="Conférences vendredi">
+      <h3>conférences </h3>
+    </div>
+  </section>
+
+  <!-- SAMEDI -->
+  <section>
+    <h2 class="decor-word">Samedi</h2>
+  </section>
+
+  <section class="cases">
+    <div class="case" onclick="openGallery(1)">
+      <img src="training days\samedi (1).png" alt="Atelier samedi">
+      <h3>. </h3>
+    </div>
+  </section>
+
+  <!-- DIMANCHE -->
+  <section>
+    <h2 class="decor-word">Dimanche</h2>
+  </section>
+
+  <section class="cases">
+    <div class="case" onclick="openGallery(2)">
+      <img src="training days/dimanche (1).png" alt="Staff dimanche">
+      <h3>.</h3>
+    </div>
+  </section>
+  <section>
+    <h2 class="decor-word">Recommendations</h2>
+  </section>
+  <section class="cases">
+    <div class="case" onclick="openGallery(3)">
+      <img src="training days/recommendations (1).png" alt="Staff dimanche">
+      <h3>Recommendations</h3>
+    </div>
+  </section>
+
+  <!-- ONE SINGLE GALLERY MODAL (only one id="galleryModal" in the whole page) -->
+  <div class="modal" id="galleryModal">
+    <span class="close" onclick="closeGallery()">×</span>
+
+    <div class="slider">
+      <button class="nav prev" onclick="moveSlide(-1)">‹</button>
+      <div class="slides"></div>
+      <button class="nav next" onclick="moveSlide(1)">›</button>
+    </div>
+  </div>
+
+  <!-- VIDEO -->
+  <div class="event-video">
+    <iframe
+      src="training days/AQPRGYt2AfOCOcuntAPPuOvlRc3KX2sZF2-O_vg4HlALxXe4dB7UtAX2YFQftmZW8j7Icu5SAvHJKmCsGzeTYI2woMsmHib-k7rIJvZ7prbBxw.mp4"
+      frameborder="0"
+      allow="autoplay; encrypted-media"
+      allowfullscreen>
+    </iframe>
+  </div>
+
+  <section id="news" class="section container fade">
+    <h2>Actualités récentes</h2>
+    <div class="news-list"></div>
+  </section>
+
+<!-- ================= GALLERY SCRIPT ================= -->
+<script>
+let currentSlide = 0;
+
+/* ALL GALLERIES HERE (index = number used in openGallery(n)) */
+const galleries = [
+  /* 0 - Vendredi conférences */
+  [
+    "training days/conference.png",
+    "training days/conference1.png",
+    "training days/conference2.png",
+    "training days/conference3.png",
+  ],
+  /* 1 - Samedi atelier */
+  [
+    "training days/samedi (1).png",
+    "training days/samedi (2).png",
+    "training days/samedi (3).png",
+    "training days/samedi (4).png",
+    "training days/samedi (5).png",
+    "training days/samedi (6).png",
+  ],
+  /* 2 - Dimanche staff */
+  [
+    "training days/dimanche (1).png",
+    "training days/dimanche (9).png",
+    "training days/dimanche (10).png",
+    "training days/dimanche (11).png",
+    "training days/dimanche (12).png",
+    "training days/dimanche (13).png",
+  ],
+   [
+    "training days/recommendations (1).png",
+    "training days/recommendations (2).png",
+    "training days/recommendations (3).png",
+    "training days/recommendations (4).png",
+    "training days/recommendations (5).png",
+    "training days/recommendations (6).png",
+  ]
+  
+];
+
+const modal = document.getElementById("galleryModal");
+const slidesContainer = modal.querySelector(".slides");
+
+function openGallery(index) {
+  slidesContainer.innerHTML = "";
+  currentSlide = 0;
+
+  galleries[index].forEach(src => {
+    const img = document.createElement("img");
+    img.src = src;
+    slidesContainer.appendChild(img);
+  });
+
+  modal.classList.add("show");
+  updateSlide();
+}
+
+function closeGallery() {
+  modal.classList.remove("show");
+}
+
+function moveSlide(direction) {
+  const total = slidesContainer.children.length;
+  if (total === 0) return;
+  currentSlide = (currentSlide + direction + total) % total;
+  updateSlide();
+}
+
+function updateSlide() {
+  slidesContainer.style.transform = `translateX(-${currentSlide * 100}%)`;
+}
+
+/* click outside the slider closes the modal */
+modal.addEventListener("click", (e) => {
+  if (e.target === modal) closeGallery();
+});
+
+/* keyboard: arrows + Esc */
+document.addEventListener("keydown", (e) => {
+  if (!modal.classList.contains("show")) return;
+  if (e.key === "ArrowRight") moveSlide(1);
+  if (e.key === "ArrowLeft") moveSlide(-1);
+  if (e.key === "Escape") closeGallery();
+});
+</script>
+
+<!-- ================= HERO SLIDER SCRIPT ================= -->
+<script>
+const slides = document.querySelectorAll("#teslaSlider .slide");
+const dotsContainer = document.getElementById("sliderDots");
+const prevBtn = document.getElementById("prevSlide");
+const nextBtn = document.getElementById("nextSlide");
+
+let current = 0;
+
+/* CREATE DOTS dynamically */
+slides.forEach((_, i) => {
+  const dot = document.createElement("button");
+  if (i === 0) dot.classList.add("active");
+  dot.addEventListener("click", () => goToSlide(i));
+  dotsContainer.appendChild(dot);
+});
+
+const dots = dotsContainer.querySelectorAll("button");
+
+function goToSlide(i) {
+  slides[current].classList.remove("active");
+  dots[current].classList.remove("active");
+
+  current = (i + slides.length) % slides.length;
+
+  slides[current].classList.add("active");
+  dots[current].classList.add("active");
+}
+
+nextBtn.addEventListener("click", () => goToSlide(current + 1));
+prevBtn.addEventListener("click", () => goToSlide(current - 1));
+
+/* AUTOPLAY */
+setInterval(() => goToSlide(current + 1), 5000);
+</script>
+
+</body>
+</html>

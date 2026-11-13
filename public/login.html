@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Login – CIEMD</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="login-container">
+    <h2>Connexion Admin</h2>
+    <form id="login-form">
+      <input type="email" id="email" placeholder="Email" required />
+      <input type="password" id="password" placeholder="Mot de passe" required />
+      <button type="submit">Se connecter</button>
+    </form>
+    <p id="error" class="error-msg"></p>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+    import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCogv-v2t8OoiFKKNF30dfwMVKNJhAvjSw",
+      authDomain: "tads-d14eb.firebaseapp.com",
+      projectId: "tads-d14eb",
+      storageBucket: "tads-d14eb.firebasestorage.app",
+      messagingSenderId: "396988261378",
+      appId: "1:396988261378:web:4f195d2821e142af24731b",
+      measurementId: "G-SSKPX7D6W4"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    const form = document.getElementById('login-form');
+    const errorBox = document.getElementById('error');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      errorBox.textContent = '';
+
+      try {
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+
+        // Verification direct men Firestore
+        const adminDoc = await getDoc(doc(db, 'admins', user.uid));
+        
+        if (adminDoc.exists()) {
+          window.location.href = 'admin.html';
+        } else {
+          errorBox.textContent = "Accès refusé. Vous n'êtes pas administrateur.";
+          await signOut(auth);
+        }
+      } catch (err) {
+        console.error(err);
+        errorBox.textContent = 'Email ou mot de passe incorrect.';
+      }
+    });
+  </script>
+</body>
+</html>
