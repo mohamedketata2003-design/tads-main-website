@@ -821,3 +821,59 @@ html {
   width: min(95vw, 950px);
   height: clamp(350px, 72vh, 750px);
 }
+/* شكل الكتاب يولي قابل للنقر */
+.tads-book-stage {
+  cursor: pointer;
+}
+
+/* زر الإغلاق الأحمر في وضعية الـ Fullscreen */
+.book-close-btn {
+  display: none;
+  position: absolute;
+  top: 25px;
+  right: 25px;
+  background: #c93737;
+  color: white;
+  border: none;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 99999;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  transition: transform 0.2s, background 0.2s;
+}
+
+.book-close-btn:hover {
+  background: #a82b2b;
+  transform: scale(1.1);
+}
+
+/* تنسيق الـ Fullscreen */
+.tads-book-section:fullscreen {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.98);
+  padding: 40px 20px;
+  width: 100vw;
+  height: 100vh;
+  box-sizing: border-box;
+  overflow: auto;
+  border-radius: 0;
+  position: relative;
+}
+
+.tads-book-section:fullscreen .book-close-btn {
+  display: flex; /* يظهر كان في الـ Fullscreen */
+}
+
+.tads-book-section:fullscreen .tads-book {
+  width: min(95vw, 950px);
+  height: clamp(350px, 72vh, 750px);
+}

@@ -32,6 +32,7 @@
 <section class="section container fade show">
   <h2>Événements – Comité santé</h2>
   <div class="tads-book-section">
+    <button id="bookCloseFullscreen" class="book-close-btn" aria-label="Close fullscreen">&times;</button>
 
     <div class="tads-book-heading">
       <span>OUR MEMORIES</span>
@@ -116,7 +117,6 @@
 
 </script>
 
-
 <script>
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -146,7 +146,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Create one sheet per photo
   photos.forEach((photo, index) => {
-
     const sheet = document.createElement("div");
     sheet.className = "tads-book-sheet";
 
@@ -162,23 +161,16 @@ document.addEventListener("DOMContentLoaded", () => {
     sheet.appendChild(front);
 
     book.appendChild(sheet);
-
     sheets.push(sheet);
-
   });
 
   function updateBook() {
-
     sheets.forEach((sheet, index) => {
-
       const turned = index < currentPage;
-
       sheet.classList.toggle("turned", turned);
-
       sheet.style.zIndex = turned
         ? index + 1
         : sheets.length - index + 10;
-
     });
 
     prevBtn.disabled = currentPage === 0;
@@ -188,53 +180,68 @@ document.addEventListener("DOMContentLoaded", () => {
       currentPage === sheets.length
         ? "End of booklet"
         : `Page ${currentPage + 1} / ${photos.length}`;
-
   }
 
   nextBtn.addEventListener("click", () => {
-
     if (currentPage < sheets.length) {
       currentPage++;
       updateBook();
     }
-
   });
 
   prevBtn.addEventListener("click", () => {
-
     if (currentPage > 0) {
       currentPage--;
       updateBook();
     }
-
   });
 
   updateBook();
 
-});
-const fullscreenBtn = document.getElementById("bookFullscreen");
+  // ==========================================
+  // FULLSCREEN & CLOSE BUTTON LOGIC
+  // ==========================================
+  const bookStage = document.querySelector(".tads-book-stage");
   const bookSection = document.querySelector(".tads-book-section");
+  const closeFullscreenBtn = document.getElementById("bookCloseFullscreen");
+  const fullscreenBtn = document.getElementById("bookFullscreen");
 
-  if (fullscreenBtn && bookSection) {
-    fullscreenBtn.addEventListener("click", () => {
+  // فتح الـ Fullscreen بالنقر على الكتاب مباشرة
+  if (bookStage && bookSection) {
+    bookStage.addEventListener("click", () => {
       if (!document.fullscreenElement) {
         if (bookSection.requestFullscreen) {
           bookSection.requestFullscreen();
         } else if (bookSection.webkitRequestFullscreen) { /* Safari */
           bookSection.webkitRequestFullscreen();
-        } else if (bookSection.msRequestFullscreen) { /* IE11 */
-          bookSection.msRequestFullscreen();
         }
-      } else {
+      }
+    });
+  }
+
+  // إغلاق الـ Fullscreen بزيادة النقر على الزر الأحمر (X)
+  if (closeFullscreenBtn && bookSection) {
+    closeFullscreenBtn.addEventListener("click", () => {
+      if (document.fullscreenElement) {
         if (document.exitFullscreen) {
           document.exitFullscreen();
-        } else if (document.webkitExitFullscreen) {
+        } else if (document.webkitExitFullscreen) { /* Safari */
           document.webkitExitFullscreen();
         }
       }
     });
+  }
 
-    // تبديل النص متاع البوطون كيف يتغير الـ Fullscreen
+  // دعم الزر القديم لو موجود في الـ HTML
+  if (fullscreenBtn && bookSection) {
+    fullscreenBtn.addEventListener("click", () => {
+      if (!document.fullscreenElement) {
+        bookSection.requestFullscreen?.();
+      } else {
+        document.exitFullscreen?.();
+      }
+    });
+
     document.addEventListener("fullscreenchange", () => {
       if (document.fullscreenElement === bookSection) {
         fullscreenBtn.textContent = "⛶ Exit Full Screen";
@@ -243,6 +250,8 @@ const fullscreenBtn = document.getElementById("bookFullscreen");
       }
     });
   }
+
+});
 </script>
 
 
